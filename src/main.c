@@ -3,127 +3,123 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbibers <sbibers@student.42amman.com>      +#+  +:+       +#+        */
+/*   By: salam <salam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/08 17:58:41 by sbibers           #+#    #+#             */
-/*   Updated: 2025/04/08 19:25:58 by sbibers          ###   ########.fr       */
+/*   Created: 2025/04/08 17:32:26 by sbibers           #+#    #+#             */
+/*   Updated: 2025/04/08 23:58:32 by salam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-static char	*ft_strjoin_gnl(char *s1, char *s2)
+void ft_free_split(char **arr)
 {
-	size_t	i;
-	size_t	j;
-	char	*str;
-
-	if (!s1)
-	{
-		s1 = (char *)malloc(1);
-		s1[0] = '\0';
-	}
-	if (!s1 || !s2)
-		return (NULL);
-	str = (char *)malloc((ft_strlen(s1) + ft_strlen(s2) + 1));
-	if (!str)
-		return (NULL);
-	i = -1;
-	j = 0;
-	if (s1)
-		while (s1[++i] != '\0')
-			str[i] = s1[i];
-	while (s2[j] != '\0')
-		str[i++] = s2[j++];
-	str[i] = '\0';
-	free(s1);
-	return (str);
+    int i = 0;
+    if (!arr)
+        return;
+    while (arr[i])
+        free(arr[i++]);
+    free(arr);
 }
 
-static void    check_file_name(char *file_name)
+char *normalize_config_line(const char *line)
 {
-    int     i;
-    int     j;
-    char    *name;
+    char *key, *value, *joined, *final;
+    char *tmp_key, *tmp_value;
+    int i = 0;
 
-    if (ft_strlen(file_name) <= 3)
-    {
-        ft_dprintf(2, "Error\nfile_name must final with .cub\n");
-        exit(1);
-    }
-    i = 0;
-    j = 3;
-    name = ".cub";
-    while (file_name[i])
+    while (line[i] && (line[i] == ' ' || line[i] == '\t'))
         i++;
-    i--;
-    while (j >= 0)
+    int start = i;
+    while (line[i] && line[i] != ' ' && line[i] != '\t')
+        i++;
+    key = ft_substr(line, start, i - start);
+    while (line[i] && (line[i] == ' ' || line[i] == '\t'))
+        i++;
+    value = ft_strdup(line + i);
+    if (!key || !value)
     {
-        if (name[j--] != file_name[i--])
+        free(key);
+        free(value);
+        return (NULL);
+    }
+    tmp_key = key;
+    tmp_value = value;
+    key = ft_strtrim(tmp_key, " \t");
+    value = ft_strtrim(tmp_value, " \t");
+    free(tmp_key);
+    free(tmp_value);
+    if (!key || !value)
+    {
+        free(key);
+        free(value);
+        return (NULL);
+    }
+    joined = ft_strjoin(key, " ");
+    free(key);
+    if (!joined)
+    {
+        free(value);
+        return (NULL);
+    }
+    final = ft_strjoin_gnl(joined, value);
+    free(value);
+    return (final);
+}
+
+void trim_config_lines(char **lines)
+{
+    int i = 0;
+    char *check;
+    char *normalized;
+
+    while (lines[i])
+    {
+        check = ft_strtrim(lines[i], " \t\n");
+        if (!check)
+            exit(ft_dprintf(2, "Error\ntrim failed\n"));
+        if (ft_strncmp(check, "NO", 2) == 0
+            || ft_strncmp(check, "SO", 2) == 0
+            || ft_strncmp(check, "WE", 2) == 0
+            || ft_strncmp(check, "EA", 2) == 0
+            || ft_strncmp(check, "F", 1) == 0
+            || ft_strncmp(check, "C", 1) == 0)
         {
-            ft_dprintf(2, "Error\nfile_name must final with .cub\n");
-            exit(1);
+            free(check);
+            normalized = normalize_config_line(lines[i]);
+            if (!normalized)
+                exit(ft_dprintf(2, "Error\nnormalize failed\n"));
+            free(lines[i]);
+            lines[i] = normalized;
         }
+        else
+            free(check);
+        i++;
     }
 }
 
-static void check_empty_read(char *map_name)
+void parse_map(t_cub3d *data)
 {
-    int     fd;
-    char    buff[1];
-    int     byte_read;
-
-    fd = open(map_name, O_RDONLY);
-    if (fd == -1)
+    data->split_all_file = ft_split(data->all_file, '\n');
+    free(data->all_file);
+    if (!data->split_all_file || !data->split_all_file[0])
     {
-        ft_dprintf(2, "Error\ncan not read the file\n");
+        ft_dprintf(2, "Error\nfaild to allocate");
         exit(1);
     }
-    byte_read = read(fd, buff, 1);
-    close(fd);
-    if (byte_read == 0)
+    trim_config_lines(data->split_all_file);
+    int i = 0;
+    while (data->split_all_file[i])
     {
-        ft_dprintf(2, "Error\nempty file\n");
-        exit(1);
+        printf("%s\n", data->split_all_file[i]);
+        i++;
     }
-}
-
-static void handle_memory_allocation(char *str, int fd)
-{
-    if (str)
-        free(str);
-    close(fd);
-    ft_dprintf(2, "Error\nNULL check\n");
-    exit(1);
-}
-
-static void read_map(char *map_name)
-{
-    char    *map;
-    char    *str;
-    int     fd;
-    
-    map = NULL;
-    fd = open(map_name, O_RDONLY);
-    while (1)
-    {
-       str = get_next_line(fd);
-       printf("%s", str);
-       if (!str)
-           break;
-       map = ft_strjoin_gnl(map, str);
-       if (!map)
-           handle_memory_allocation(str, fd);
-       free(str);
-    }
-    // printf("%s\n", map);
-    free(map);
-    close(fd);
+    ft_free_split(data->split_all_file);
 }
 
 int main(int argc, char *argv[])
 {
-    // t_cub3d data;
+    t_cub3d data;
     
     if (argc != 2 || !argv[1][0])
     {
@@ -132,6 +128,7 @@ int main(int argc, char *argv[])
     }
     check_file_name(argv[1]);
     check_empty_read(argv[1]);
-    read_map(argv[1]);
+    data.all_file = read_map(argv[1]);
+    parse_map(&data);
     return (0);
 }

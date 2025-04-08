@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbibers <sbibers@student.42amman.com>      +#+  +:+       +#+        */
+/*   By: sbibers <sbibers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 22:55:42 by aatieh            #+#    #+#             */
-/*   Updated: 2025/04/08 19:13:04 by sbibers          ###   ########.fr       */
+/*   Updated: 2025/04/08 23:28:08 by sbibers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 
 typedef struct s_cub3d
 {
+    char *all_file;
+    char **split_all_file;
     char **map;
     char **copy_map;
     char *no;
@@ -34,6 +36,9 @@ typedef struct s_cub3d
     char *ceiling_color;
 }   t_cub3d;
 
-char	*ft_merge(char *s1, char *s2, int free_s1, int free_s2);
+char    *read_map(char *map_name);
+void     check_empty_read(char *map_name);
+void    check_file_name(char *file_name);
+char	*ft_strjoin_gnl(char *s1, char *s2);
 
 #endif
