@@ -23,8 +23,8 @@ $(LIBFT):
 $(NAME): $(OBJS) inc/cub3d.h
 	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) \
 	-L$(LIBFT_DIR) -lft \
-	-L$(MLX42_DIR) -lmlx42 -lmlx \
-	-lX11 -lXext -lm -I.
+	-L$(MLX42_DIR) -lmlx42 \
+	-ldl -lglfw -pthread -lm -I.
 
 $(OBJS_DIR)/%.o: $(SRC_DIR)/%.c inc/cub3d.h | $(OBJS_DIR)
 			$(CC) $(CFLAGS) -c $< -o $@
