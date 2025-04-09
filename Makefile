@@ -5,7 +5,7 @@ LIBFT = $(LIBFT_DIR)/libft.a
 MLX42_DIR = MLX42/build
 MLX = $(MLX42_DIR)/libmlx42.a
 
-SRCS = main read_map check_name_empty
+SRCS = main read_map check_name_empty parse_map_1
 SRCS := $(addprefix $(SRC_DIR)/, $(SRCS))
 SRCS := $(addsuffix .c, $(SRCS))
 OBJS = $(SRCS:$(SRC_DIR)/%.c=$(OBJS_DIR)/%.o)
