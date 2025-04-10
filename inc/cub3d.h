@@ -6,7 +6,7 @@
 /*   By: sbibers <sbibers@student.42amman.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 22:55:42 by aatieh            #+#    #+#             */
-/*   Updated: 2025/04/09 18:53:48 by sbibers          ###   ########.fr       */
+/*   Updated: 2025/04/10 15:32:56 by sbibers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,16 @@
 # include <sys/time.h>
 # include <string.h>
 # include <stdio.h>
+
+typedef struct s_check_count
+{
+    int no;
+    int so;
+    int we;
+    int ea;
+    int floor_color;
+    int ceiling_color;
+}  t_check_count;
 
 typedef struct s_file
 {
@@ -38,7 +48,7 @@ typedef struct s_bearings
 
 typedef struct s_map
 {
-    char **map;
+    char **map_2d;
     char **copy_map;
 }   t_map;
 
@@ -46,6 +56,8 @@ typedef struct s_cub3d
 {
     t_file file;
     t_bearings bearings;
+    t_check_count count;
+    t_map   map;
     char *floor_color;
     char *ceiling_color;
 }   t_cub3d;
