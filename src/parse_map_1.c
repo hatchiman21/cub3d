@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map_1.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbibers <sbibers@student.42amman.com>      +#+  +:+       +#+        */
+/*   By: sbibers <sbibers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 12:12:06 by sbibers           #+#    #+#             */
-/*   Updated: 2025/04/10 18:54:52 by sbibers          ###   ########.fr       */
+/*   Updated: 2025/04/11 17:56:29 by sbibers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,14 +92,14 @@ static void trim_config_lines(char **lines)
     {
         check = ft_strtrim(lines[i], " \t\n");
         if (!check)
-            exit(printf("Error\ntrim failed\n"));
+            exit(ft_dprintf(2, "Error\ntrim failed\n"));
         if (check_string(check))
         {
             free(check);
             normalized = normalize_config_line(lines[i]);
             if (!normalized)
             {
-                printf("Error\nnormalize failed\n");
+                ft_dprintf(2, "Error\nnormalize failed\n");
                 exit(1);
             }
             free(lines[i]);
@@ -145,7 +145,7 @@ void exit_allocation(char **split, t_cub3d *data)
 {
     ft_free_split(split);
     free(data->file.all_file);
-    printf("Error\nAllocation failed\n");
+    ft_dprintf(2, "Error\nAllocation failed\n");
     exit(1);
 }
 
@@ -195,80 +195,177 @@ char **create_2darray(t_cub3d *data)
     if (!split)
     {
         free(data->file.all_file);
-        printf("Error\nAllocation failed\n");
+        ft_dprintf(2, "Error\nAllocation failed\n");
         exit(1);
     }
     creat_2darray_2(i, count, split, data);
     return split;
 }
 
-void    init_count(t_check_count *count, int *i)
+void uncomplete_map(t_cub3d *data, int flag)
 {
-    *i = -1;
-    count->ceiling_color = 0;
-    count->floor_color = 0;
-    count->ea = 0;
-    count->no = 0;
-    count->so = 0;
-    count->we = 0;
+    if (data->file.split_all_file)
+        ft_free_split(data->file.split_all_file);
+    if (data->bearings.ea)
+        free(data->bearings.ea);
+    if (data->bearings.no)
+        free(data->bearings.no);
+    if (data->bearings.so)
+        free(data->bearings.so);
+    if (data->bearings.we)
+        free(data->bearings.we);
+    if (data->file.complete_file)
+        free(data->file.complete_file);
+    if (data->floor_color)
+        free(data->floor_color);
+    if (data->ceiling_color)
+        free(data->ceiling_color);
+    if (flag == 1)
+        printf("Error\nWrong map\n");
+    else if (flag == 0)
+        printf("Error\nMemory allocation faild\n");
+    exit(1);
 }
 
-int check(char *str)
+void init_data(t_cub3d *data)
 {
-    if (ft_strncmp(str, "F ", 2) == 0 && ft_strlen(str) > 2)
-        return (1);  // Floor color
-    else if (ft_strncmp(str, "C ", 2) == 0 && ft_strlen(str) > 2)
-        return (2);  // Ceiling color
-    else if (ft_strncmp(str, "EA ", 3) == 0 && ft_strlen(str) > 3)
-        return (3);  // East texture
-    else if (ft_strncmp(str, "NO ", 3) == 0 && ft_strlen(str) > 3)
-        return (4);  // North texture
-    else if (ft_strncmp(str, "SO ", 3) == 0 && ft_strlen(str) > 3)
-        return (5);  // South texture
-    else if (ft_strncmp(str, "WE ", 3) == 0 && ft_strlen(str) > 3)
-        return (6);  // West texture
-    return (0);
+    data->file.complete_file = NULL;
+    data->floor_color = NULL;
+    data->ceiling_color = NULL;
+    data->bearings.ea = NULL;
+    data->bearings.no = NULL;
+    data->bearings.so = NULL;
+    data->bearings.we = NULL;
+    data->counter.count_ea = 0;
+    data->counter.count_no = 0;
+    data->counter.count_so = 0;
+    data->counter.count_we = 0;
+    data->counter.count_floor_color = 0;
+    data->counter.count_ceiling_color = 0;
 }
 
-void    check_char_1(t_cub3d *data)
+void check_comma(t_cub3d *data)
 {
     int i;
+    int count;
 
-    init_count(&data->count, &i);
-    while (data->file.split_all_file[++i])
+    i = 0;
+    count = 0;
+    while (data->floor_color[i])
     {
-        // printf("%s\n", data->file.split_all_file[i]);
-        if (check(data->file.split_all_file[i]) == 1)
-            data->count.floor_color++;
-        if (check(data->file.split_all_file[i]) == 2)
-            data->count.ceiling_color++;
-        if (check(data->file.split_all_file[i]) == 3)
-            data->count.ea++;
-        if (check(data->file.split_all_file[i]) == 4)
-            data->count.no++;
-        if (check(data->file.split_all_file[i]) == 5)
-            data->count.so++;
-        if (check(data->file.split_all_file[i]) == 6)
-            data->count.we++;
+        if (data->floor_color[i] == ',')
+            count++;
+        i++;
     }
-    // printf("%d\n", data->count.we);
-    if (data->count.ceiling_color != 1 || data->count.floor_color != 1 || data->count.ea != 1
-        || data->count.no != 1 || data->count.so != 1 || data->count.we != 1)
+    if (count != 2)
+        uncomplete_map(data, 1);
+    count = 0;
+    i = 0;
+    while (data->ceiling_color[i])
     {
-        ft_free_split(data->file.split_all_file);
-        printf("Error\nWrong map\n");
-        exit(1);
+        if (data->ceiling_color[i] == ',')
+            count++;
+        i++;
     }
+    if (count != 2)
+        uncomplete_map(data, 1);
 }
 
-int find_newline(char *str)
+void check_files(t_cub3d *data)
+{
+    int fd;
+
+    fd = open(data->bearings.ea, O_RDONLY);
+    if (fd == -1)
+        uncomplete_map(data, 1);
+    close (fd);
+    fd = open(data->bearings.no, O_RDONLY);
+    if (fd == -1)
+        uncomplete_map(data, 1);
+    close (fd);
+    fd = open(data->bearings.so, O_RDONLY);
+    if (fd == -1)
+        uncomplete_map(data, 1);
+    close (fd);
+    fd = open(data->bearings.we, O_RDONLY);
+    if (fd == -1)
+        uncomplete_map(data, 1);
+    close (fd);
+}
+
+void check_bearings_colors(t_cub3d *data)
+{
+    check_comma(data);
+    check_files(data);
+}
+
+void split_lines(t_cub3d *data)
 {
     int i;
 
     i = 0;
-    while (str[i] && str[i] != '\n')
+    init_data(data);
+    while (data->file.split_all_file[i])
+    {
+        if (ft_strncmp(data->file.split_all_file[i], "F ", 2) == 0)
+        {
+            data->floor_color = ft_strndup(data->file.split_all_file[i] + 2, ft_strlen(data->file.split_all_file[i]) - 2);
+            data->counter.count_floor_color++;
+        }
+        else if (ft_strncmp(data->file.split_all_file[i], "C ", 2) == 0)
+        {
+            data->ceiling_color = ft_strndup(data->file.split_all_file[i] + 2, ft_strlen(data->file.split_all_file[i]) - 2);
+            data->counter.count_ceiling_color++;
+        }
+        else if (ft_strncmp(data->file.split_all_file[i], "NO ", 3) == 0)
+        {
+            data->bearings.no = ft_strndup(data->file.split_all_file[i] + 3, ft_strlen(data->file.split_all_file[i]) - 3);
+            data->counter.count_no++;
+        }
+        else if (ft_strncmp(data->file.split_all_file[i], "SO ", 3) == 0)
+        {
+            data->bearings.so = ft_strndup(data->file.split_all_file[i] + 3, ft_strlen(data->file.split_all_file[i]) - 3);
+            data->counter.count_so++;
+        }
+        else if (ft_strncmp(data->file.split_all_file[i], "WE ", 3) == 0)
+        {
+            data->bearings.we = ft_strndup(data->file.split_all_file[i] + 3, ft_strlen(data->file.split_all_file[i]) - 3);
+            data->counter.count_we++;
+        }
+        else if (ft_strncmp(data->file.split_all_file[i], "EA ", 3) == 0)
+        {
+            data->bearings.ea = ft_strndup(data->file.split_all_file[i] + 3, ft_strlen(data->file.split_all_file[i]) - 3);
+            data->counter.count_ea++;
+        }
+        else
+            data->file.complete_file = ft_strjoin_gnl(data->file.complete_file, data->file.split_all_file[i]);
         i++;
-    return (i);
+    }
+    if (!data->floor_color || !data->ceiling_color || !data->bearings.ea
+        || !data->bearings.no || !data->bearings.so || !data->bearings.we
+        || data->counter.count_ceiling_color != 1 || data->counter.count_floor_color != 1
+        || data->counter.count_ea != 1 || data->counter.count_so != 1
+        || data->counter.count_we != 1 || data->counter.count_no != 1)
+        uncomplete_map(data, 1);
+    check_bearings_colors(data);
+}
+
+void check_complete_file(t_cub3d *data)
+{
+    int i;
+
+    i = 0;
+    while (data->file.complete_file[i])
+    {
+        if (data->file.complete_file[i] != '0' && data->file.complete_file[i] != '1'
+        && data->file.complete_file[i] != ' ' && data->file.complete_file[i] != '\n'
+        && data->file.complete_file[i] != 'N' && data->file.complete_file[i] != 'S'
+        && data->file.complete_file[i] != 'E' && data->file.complete_file[i] != 'W')
+            uncomplete_map(data, 1);
+        i++;
+    }
+    free(data->file.complete_file);
+    data->file.complete_file = NULL;
 }
 
 int skip_spaces(char *str)
@@ -278,119 +375,102 @@ int skip_spaces(char *str)
     i = 0;
     while (str[i] && str[i] == ' ')
         i++;
-    if (str[i] == '\n' || (str[i] == '1' || str[i] == '0'))
+    if (str[i] == '1' || str[i] == '0')
         return (1);
-    printf("str : %s\n", str);
-    // exit(1);
-    // else
-    return (1);
-}
-
-void stop_parsing(t_cub3d *data)
-{
-    ft_free_split(data->file.split_all_file);
-    if (data->bearings.ea)
-        free(data->bearings.ea);
-    else if (data->bearings.no)
-        free(data->bearings.no);
-    else if (data->bearings.so)
-        free(data->bearings.so);
-    else if (data->bearings.we)
-        free(data->bearings.we);
-    printf("Error\nWrong map\n");
-}
-
-int find_size_of_map(t_cub3d *data, int i)
-{
-    int j;
-
-    j = 0;
-    while (data->file.split_all_file[i])
-    {
-        if (data->file.split_all_file[i] == NULL)
-            break;
-        if (skip_spaces(data->file.split_all_file[i]) == 1)
-        {
-            i++;
-            j++;
-        }
-        else
-        {
-            stop_parsing(data);
-            exit(1);
-        }
-    }
-    if (j == 0)
-        stop_parsing(data);
-    return (j);
-}
-
-void find_map(t_cub3d *data, int *i)
-{
-    int j;
-
-    j = 0;
-    if (skip_spaces(data->file.split_all_file[*i]))
-    {
-        int size = find_size_of_map(data, *i);
-        data->map.map_2d = (char **) malloc(sizeof(char *) * size + 1);
-        while (data->file.split_all_file[*i])
-        {
-            data->map.map_2d[j] = ft_strndup(data->file.split_all_file[*i], find_newline(data->file.split_all_file[*i]) + 1);
-            (*i)++;
-            j++;
-        }
-    }
     else
-    {
-        stop_parsing(data);
-    }
-    data->map.map_2d[j] = NULL;
+        return (0);
 }
 
-void check_to_copy_file(t_cub3d *data, int *i)
-{
-    // printf("%s", data->file.split_all_file[*i]);
-    // exit(1);
-    if (check(data->file.split_all_file[*i]) == 1)
-        data->floor_color = ft_strndup(data->file.split_all_file[*i], find_newline(data->file.split_all_file[*i] + 1));
-    else if (check(data->file.split_all_file[*i]) == 2)
-        data->ceiling_color = ft_strndup(data->file.split_all_file[*i], find_newline(data->file.split_all_file[*i] + 1));
-    else if (check(data->file.split_all_file[*i]) == 3)
-        data->bearings.ea = ft_strndup(data->file.split_all_file[*i], find_newline(data->file.split_all_file[*i] + 1));
-    else if (check(data->file.split_all_file[*i]) == 4)
-        data->bearings.no = ft_strndup(data->file.split_all_file[*i], find_newline(data->file.split_all_file[*i] + 1));
-    else if (check(data->file.split_all_file[*i]) == 5)
-        data->bearings.so = ft_strndup(data->file.split_all_file[*i], find_newline(data->file.split_all_file[*i] + 1));
-    else if (check(data->file.split_all_file[*i]) == 6)
-        data->bearings.we = ft_strndup(data->file.split_all_file[*i], find_newline(data->file.split_all_file[*i] + 1));
-    else
-        find_map(data, i);
-}
 
-void    make_map(t_cub3d *data)
+void create_map(t_cub3d *data)
 {
     int i;
-    
-    i = -1;
-    while (data->file.split_all_file[++i])
+    int j;
+    int map_lines;
+    int temp;
+
+    i = 0;
+    j = 0;
+    map_lines = 0;
+    while (data->file.split_all_file[i])
     {
-        check_to_copy_file(data, &i);
+        if (skip_spaces(data->file.split_all_file[i]))
+            break;
+        i++;
     }
+    temp = i;
+    while (data->file.split_all_file[temp])
+    {
+        map_lines++;
+        temp++;
+    }
+    data->map.map = malloc(sizeof(char *) * (map_lines + 1));
+    if (!data->map.map)
+        uncomplete_map(data, 0);
+    while (data->file.split_all_file[i])
+    {
+        data->map.map[j] = ft_strdup(data->file.split_all_file[i]);
+        if (!data->map.map[j])
+        {
+            ft_free_split(data->map.map);
+            uncomplete_map(data, 0);
+        }
+        i++;
+        j++;
+    }
+    data->map.map[j] = NULL;
     ft_free_split(data->file.split_all_file);
+    data->file.split_all_file = NULL;
 }
 
-void    parse_map(t_cub3d *data)
+void	check_map(t_cub3d *data)
+{
+	int		i;
+	int		j;
+	int		player_count;
+	char	c;
+
+	i = 0;
+	player_count = 0;
+	while (data->map.map[i])
+	{
+		j = 0;
+		while (data->map.map[i][j])
+		{
+			c = data->map.map[i][j];
+			if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
+				player_count++;
+			else if (c != '0' && c != '1' && c != ' ' && c != '\n')
+			{
+				ft_free_split(data->map.map);
+                uncomplete_map(data, 1);
+			}
+			j++;
+		}
+		i++;
+	}
+	if (player_count != 1)
+	{
+        ft_free_split(data->map.map);
+        uncomplete_map(data, 1);
+	}
+}
+
+void parse_map(t_cub3d *data)
 {
     data->file.split_all_file = create_2darray(data);
     free(data->file.all_file);
     if (!data->file.split_all_file || !data->file.split_all_file[0])
     {
-        printf("Error\nFailed to allocate split lines\n");
+        ft_dprintf(2, "Error\nFailed to allocate split lines\n");
         exit(1);
     }
     trim_config_lines(data->file.split_all_file);
-    check_char_1(data);
-    make_map(data);
-    ft_free_split(data->file.split_all_file);
+    split_lines(data);
+    check_complete_file(data);
+    create_map(data);
+    check_map(data);
+    // for no leaks, check if all done, except flood fill and colors.
+    ft_free_split(data->map.map);
+    uncomplete_map(data, 1);
 }

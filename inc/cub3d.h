@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbibers <sbibers@student.42amman.com>      +#+  +:+       +#+        */
+/*   By: sbibers <sbibers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 22:55:42 by aatieh            #+#    #+#             */
-/*   Updated: 2025/04/10 15:32:56 by sbibers          ###   ########.fr       */
+/*   Updated: 2025/04/11 16:40:31 by sbibers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,11 @@
 # include <string.h>
 # include <stdio.h>
 
-typedef struct s_check_count
-{
-    int no;
-    int so;
-    int we;
-    int ea;
-    int floor_color;
-    int ceiling_color;
-}  t_check_count;
-
 typedef struct s_file
 {
     char *all_file;
     char **split_all_file;
+    char *complete_file;
 }  t_file;
 
 typedef struct s_bearings
@@ -46,9 +37,20 @@ typedef struct s_bearings
     char *ea;
 }   t_bearings;
 
+typedef struct s_count
+{
+    int count_no;
+    int count_so;
+    int count_we;
+    int count_ea;
+    int count_floor_color;
+    int count_ceiling_color;
+}   t_count;
+
+
 typedef struct s_map
 {
-    char **map_2d;
+    char **map;
     char **copy_map;
 }   t_map;
 
@@ -56,8 +58,8 @@ typedef struct s_cub3d
 {
     t_file file;
     t_bearings bearings;
-    t_check_count count;
-    t_map   map;
+    t_count counter;
+    t_map map;
     char *floor_color;
     char *ceiling_color;
 }   t_cub3d;
