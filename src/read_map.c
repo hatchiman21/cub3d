@@ -40,34 +40,33 @@ char	*ft_strjoin_gnl(char *s1, char *s2)
 	return (str);
 }
 
-static void handle_memory_allocation(char *str, int fd)
+static void	handle_memory_allocation(char *str, int fd)
 {
-    if (str)
-        free(str);
-    close(fd);
-    ft_dprintf(2, "Error\nNULL check\n");
-    exit(1);
+	if (str)
+		free(str);
+	close(fd);
+	ft_dprintf(2, "Error\nNULL check\n");
+	exit(1);
 }
 
-
-char *read_map(char *map_name)
+char	*read_map(char *map_name)
 {
-    char    *map;
-    char    *str;
-    int     fd;
-    
-    map = NULL;
-    fd = open(map_name, O_RDONLY);
-    while (1)
-    {
-       str = get_next_line(fd);
-       if (!str)
-           break;
-       map = ft_strjoin_gnl(map, str);
-       if (!map)
-           handle_memory_allocation(str, fd);
-       free(str);
-    }
-    close(fd);
-    return (map);
+	char	*map;
+	char	*str;
+	int		fd;
+
+	map = NULL;
+	fd = open(map_name, O_RDONLY);
+	while (1)
+	{
+		str = get_next_line(fd);
+		if (!str)
+			break ;
+		map = ft_strjoin_gnl(map, str);
+		if (!map)
+			handle_memory_allocation(str, fd);
+		free(str);
+	}
+	close(fd);
+	return (map);
 }

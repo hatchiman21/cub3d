@@ -5,7 +5,8 @@
         "mlx42.h": "c",
         "libft.h": "c",
         "algorithm": "c",
-        "format": "c"
+        "format": "c",
+        "time.h": "c"
     },
     "cmake.sourceDirectory": "/home/sbibers/cub3d/MLX42/tests"
 }
