@@ -6,7 +6,7 @@
 /*   By: sbibers <sbibers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 22:08:45 by sbibers           #+#    #+#             */
-/*   Updated: 2025/04/11 23:33:04 by sbibers          ###   ########.fr       */
+/*   Updated: 2025/04/12 19:11:57 by sbibers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,17 @@ char	*ft_strndup(const char *s, int n)
 	}
 	*d = '\0';
 	return (dup);
+}
+
+int	skip_spaces(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] && str[i] == ' ')
+		i++;
+	if (str[i] == '1' || str[i] == '0')
+		return (1);
+	else
+		return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: sbibers <sbibers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 22:05:48 by sbibers           #+#    #+#             */
-/*   Updated: 2025/04/11 23:01:07 by sbibers          ###   ########.fr       */
+/*   Updated: 2025/04/12 19:24:51 by sbibers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ void	creat_2darray_2(int i, int count, char **split, t_cub3d *data)
 {
 	int	start;
 
-	i = 0;
-	count = 0;
 	while (data->file.all_file[i])
 	{
 		start = i;
@@ -44,7 +42,8 @@ void	creat_2darray_2(int i, int count, char **split, t_cub3d *data)
 				exit_allocation(split, data);
 		}
 		count++;
-		i++;
+		if (data->file.all_file[i] == '\n')
+			i++;
 	}
 	split[count] = NULL;
 }
@@ -62,7 +61,8 @@ char	**create_2darray(t_cub3d *data)
 		count++;
 		while (data->file.all_file[i] && data->file.all_file[i] != '\n')
 			i++;
-		i++;
+		if (data->file.all_file[i] == '\n')
+			i++;
 	}
 	split = malloc(sizeof(char *) * (count + 1));
 	if (!split)
@@ -71,6 +71,6 @@ char	**create_2darray(t_cub3d *data)
 		ft_dprintf(2, "Error\nAllocation failed\n");
 		exit(1);
 	}
-	creat_2darray_2(i, count, split, data);
+	creat_2darray_2(0, 0, split, data);
 	return (split);
 }

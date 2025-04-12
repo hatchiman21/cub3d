@@ -6,29 +6,36 @@
 /*   By: sbibers <sbibers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 22:21:13 by sbibers           #+#    #+#             */
-/*   Updated: 2025/04/11 22:58:23 by sbibers          ###   ########.fr       */
+/*   Updated: 2025/04/12 19:27:24 by sbibers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-int	skip_spaces(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i] && str[i] == ' ')
-		i++;
-	if (str[i] == '1' || str[i] == '0')
-		return (1);
-	else
-		return (0);
-}
-
 static void	stop_create_map(t_cub3d *data)
 {
 	ft_free_split(data->map.map);
 	uncomplete_map(data, 1);
+}
+
+void	check_map_2(t_cub3d *data)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (data->map.map[i])
+	{
+		if (!skip_spaces(data->map.map[i]))
+		{
+			j = 0;
+			while (data->map.map[i][j] && data->map.map[i][j] == ' ')
+				j++;
+			if (data->map.map[i][j] == '\n')
+				stop_create_map(data);
+		}
+		i++;
+	}
 }
 
 void	check_map(t_cub3d *data)

@@ -6,7 +6,7 @@
 /*   By: sbibers <sbibers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 22:55:42 by aatieh            #+#    #+#             */
-/*   Updated: 2025/04/11 23:48:41 by sbibers          ###   ########.fr       */
+/*   Updated: 2025/04/12 19:17:36 by sbibers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ typedef struct s_cub3d
 	char		char_player;
 }				t_cub3d;
 
+int				skip_spaces(char *str);
 int				ft_strlen_matrix(char **str);
 char			*read_map(char *map_name);
 void			check_empty_read(char *map_name);
@@ -101,5 +102,6 @@ void			check_map(t_cub3d *data);
 void			get_poisition_of_player(t_cub3d *data);
 void			flood_fill(t_cub3d *data, int player_y, int player_x);
 void			check_bearings_colors(t_cub3d *data);
+void			check_map_2(t_cub3d *data);
 
 #endif

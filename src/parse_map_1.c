@@ -6,7 +6,7 @@
 /*   By: sbibers <sbibers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 12:12:06 by sbibers           #+#    #+#             */
-/*   Updated: 2025/04/11 23:00:04 by sbibers          ###   ########.fr       */
+/*   Updated: 2025/04/12 19:20:19 by sbibers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ void	parse_map(t_cub3d *data)
 	check_complete_file(data);
 	create_map(data);
 	check_map(data);
+	check_map_2(data);
 	get_poisition_of_player(data);
 	flood_fill(data, data->player_y, data->player_x);
 	recovery_map(data);
