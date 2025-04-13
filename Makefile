@@ -2,6 +2,7 @@ LIBFT_DIR = libft
 SRC_DIR = src
 OBJS_DIR = obj
 LIBFT = $(LIBFT_DIR)/libft.a
+LIBMLX = MLX42
 MLX42_DIR = MLX42/build
 MLX = $(MLX42_DIR)/libmlx42.a
 
@@ -15,10 +16,13 @@ CFLAGS = -Wall -Wextra -Werror -g
 
 NAME = cub3d
 
-all: $(LIBFT) $(NAME)
+all: libmlx $(LIBFT) $(NAME)
 
 $(LIBFT):
 	$(MAKE) -C $(LIBFT_DIR)
+	
+libmlx:
+	@cmake $(LIBMLX) -B $(MLX42_DIR) && make -C $(MLX42_DIR) -j4
 
 $(NAME): $(OBJS) inc/cub3d.h
 	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) \
@@ -37,6 +41,7 @@ bonus: $(LIBFT) $(NAME)
 clean:
 	$(MAKE) -C $(LIBFT_DIR) clean
 	rm -rf $(OBJS_DIR)
+	rm -rf $(MLX42_DIR)
 
 fclean:
 	$(MAKE) -C $(LIBFT_DIR) fclean
