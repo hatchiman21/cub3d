@@ -6,7 +6,7 @@
 /*   By: sbibers <sbibers@student.42amman.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 22:55:42 by aatieh            #+#    #+#             */
-/*   Updated: 2025/04/13 17:24:58 by sbibers          ###   ########.fr       */
+/*   Updated: 2025/04/13 20:10:13 by sbibers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,17 @@ typedef struct s_count
 typedef struct s_map
 {
 	char		**map;
+	char		**copy_map;
+	int			height;
+	int			width;
 }				t_map;
+
+typedef struct s_player
+{
+	float	x;
+	float	y;
+	float	angle;
+}			t_player;
 
 typedef struct s_cub3d
 {
@@ -75,6 +85,7 @@ typedef struct s_cub3d
 	t_bearings	bearings;
 	t_count		counter;
 	t_map		map;
+	t_player	angle_player;
 	char		*floor_color;
 	char		*ceiling_color;
 	int			arr_floor_color[3];
@@ -104,5 +115,8 @@ void			flood_fill(t_cub3d *data, int player_y, int player_x);
 void			check_bearings_colors(t_cub3d *data);
 void			check_map_2(t_cub3d *data);
 void			stop_create_map(t_cub3d *data);
+void			check_map_borders(t_cub3d *data);
+void			pad_map(t_cub3d *data);
+char			**ft_dup_matrix(char **m, int size, int flag);
 
 #endif

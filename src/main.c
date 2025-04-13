@@ -6,7 +6,7 @@
 /*   By: sbibers <sbibers@student.42amman.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 17:32:26 by sbibers           #+#    #+#             */
-/*   Updated: 2025/04/13 17:25:30 by sbibers          ###   ########.fr       */
+/*   Updated: 2025/04/13 20:10:14 by sbibers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,7 @@ int	main(int argc, char *argv[])
 	check_empty_read(argv[1]);
 	data.file.all_file = read_map(argv[1]);
 	parse_map(&data);
+	// ft_free_split(data.map.map);
+	// uncomplete_map(&data, 1);
 	return (0);
 }
