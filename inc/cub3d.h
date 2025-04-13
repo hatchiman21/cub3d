@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbibers <sbibers@student.42amman.com>      +#+  +:+       +#+        */
+/*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 22:55:42 by aatieh            #+#    #+#             */
-/*   Updated: 2025/04/13 20:10:13 by sbibers          ###   ########.fr       */
+/*   Updated: 2025/04/13 22:52:40 by aatieh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,11 @@
 # include <string.h>
 # include <sys/time.h>
 # include <unistd.h>
+
+# define PI 3.14159265358979323846
+# define STEP_LEN 1.5
+# define CUB_WIDTH 1280
+# define CUB_HEIGHT 720
 
 typedef struct s_data_normalize
 {
@@ -72,8 +77,19 @@ typedef struct s_map
 	int			width;
 }				t_map;
 
+typedef struct s_mlx_cube3d
+{
+	mlx_t			*mlx;
+	mlx_image_t		*img;
+	mlx_texture_t	*no;
+	mlx_texture_t	*so;
+	mlx_texture_t	*we;
+	mlx_texture_t	*ea;
+}					t_mlx_cube3d;
+
 typedef struct s_player
 {
+	char	c;
 	float	x;
 	float	y;
 	float	angle;
@@ -81,19 +97,17 @@ typedef struct s_player
 
 typedef struct s_cub3d
 {
-	t_file		file;
-	t_bearings	bearings;
-	t_count		counter;
-	t_map		map;
-	t_player	angle_player;
-	char		*floor_color;
-	char		*ceiling_color;
-	int			arr_floor_color[3];
-	int			arr_ceiling_color[3];
-	int			player_x;
-	int			player_y;
-	char		char_player;
-}				t_cub3d;
+	t_file			file;
+	t_bearings		bearings;
+	t_count			counter;
+	t_map			map;
+	t_player		player;
+	t_mlx_cube3d	mlx_data;
+	char			*floor_color;
+	char			*ceiling_color;
+	int				arr_floor_color[3];
+	int				arr_ceiling_color[3];
+}					t_cub3d;
 
 int				skip_spaces(char *str);
 int				ft_strlen_matrix(char **str);

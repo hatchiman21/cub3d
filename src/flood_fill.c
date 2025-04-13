@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   flood_fill.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbibers <sbibers@student.42amman.com>      +#+  +:+       +#+        */
+/*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 22:24:52 by sbibers           #+#    #+#             */
-/*   Updated: 2025/04/13 20:09:34 by sbibers          ###   ########.fr       */
+/*   Updated: 2025/04/13 22:47:31 by aatieh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ void	get_poisition_of_player(t_cub3d *data)
 			if (data->map.map[i][j] == 'N' || data->map.map[i][j] == 'S'
 				|| data->map.map[i][j] == 'E' || data->map.map[i][j] == 'W')
 			{
-				data->char_player = data->map.map[i][j];
-				data->player_y = i;
-				data->player_x = j;
+				data->player.c = data->map.map[i][j];
+				data->player.y = i;
+				data->player.x = j;
 			}
 			j++;
 		}

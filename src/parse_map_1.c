@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map_1.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbibers <sbibers@student.42amman.com>      +#+  +:+       +#+        */
+/*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 12:12:06 by sbibers           #+#    #+#             */
-/*   Updated: 2025/04/13 20:10:11 by sbibers          ###   ########.fr       */
+/*   Updated: 2025/04/13 22:46:16 by aatieh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	convert_char_player(t_cub3d *data)
 		j = 0;
 		while (data->map.map[i][j])
 		{
-			if (data->player_y == i && data->player_x == j)
+			if (data->player.y == i && data->player.x == j)
 				data->map.map[i][j] = 'P';
 			j++;
 		}
@@ -92,7 +92,7 @@ void	parse_map(t_cub3d *data)
 	data->map.copy_map = ft_dup_matrix(data->map.map, ft_strlen_matrix(data->map.map), 0);
 	pad_map(data);
 	check_map_borders(data);
-	flood_fill(data, data->player_y, data->player_x);
+	flood_fill(data, data->player.y, data->player.x);
 	ft_free_split(data->map.copy_map);
 	convert_char_player(data);
 }
