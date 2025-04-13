@@ -3,28 +3,47 @@
 /*                                                        :::      ::::::::   */
 /*   create_map.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbibers <sbibers@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbibers <sbibers@student.42amman.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 22:21:13 by sbibers           #+#    #+#             */
-/*   Updated: 2025/04/12 19:27:24 by sbibers          ###   ########.fr       */
+/*   Updated: 2025/04/13 17:24:37 by sbibers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-static void	stop_create_map(t_cub3d *data)
+int	find_last_line(char **map)
 {
-	ft_free_split(data->map.map);
-	uncomplete_map(data, 1);
+	int	i;
+	int	j;
+	int	size;
+
+	i = 0;
+	while (map[i])
+		i++;
+	size = --i;
+	while (i >= 0)
+	{
+		j = 0;
+		while (map[i][j] && map[i][j] == ' ')
+			j++;
+		if (map[i][j] != '\n')
+			return (size);
+		size--;
+		i--;
+	}
+	return (size);
 }
 
 void	check_map_2(t_cub3d *data)
 {
 	int	i;
 	int	j;
+	int	size;
 
 	i = 0;
-	while (data->map.map[i])
+	size = find_last_line(data->map.map);
+	while (data->map.map[i] && i <= size)
 	{
 		if (!skip_spaces(data->map.map[i]))
 		{

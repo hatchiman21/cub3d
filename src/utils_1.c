@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_1.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbibers <sbibers@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbibers <sbibers@student.42amman.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 22:08:45 by sbibers           #+#    #+#             */
-/*   Updated: 2025/04/12 19:11:57 by sbibers          ###   ########.fr       */
+/*   Updated: 2025/04/13 17:24:45 by sbibers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,10 @@ int	skip_spaces(char *str)
 		return (1);
 	else
 		return (0);
+}
+
+void	stop_create_map(t_cub3d *data)
+{
+	ft_free_split(data->map.map);
+	uncomplete_map(data, 1);
 }
