@@ -6,7 +6,7 @@
 /*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 22:55:42 by aatieh            #+#    #+#             */
-/*   Updated: 2025/04/13 22:52:40 by aatieh           ###   ########.fr       */
+/*   Updated: 2025/04/14 06:34:27 by aatieh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,12 @@
 # include <unistd.h>
 
 # define PI 3.14159265358979323846
-# define STEP_LEN 1.5
+# define SPEED 2
+# define ROTATE_SPEED 0.05
 # define CUB_WIDTH 1280
 # define CUB_HEIGHT 720
+# define BLOCK 32
+# define DEBUG 2
 
 typedef struct s_data_normalize
 {
@@ -132,5 +135,24 @@ void			stop_create_map(t_cub3d *data);
 void			check_map_borders(t_cub3d *data);
 void			pad_map(t_cub3d *data);
 char			**ft_dup_matrix(char **m, int size, int flag);
+
+void			determine_init_angle(t_cub3d *data);
+void			move_player(t_cub3d *data);
+void			move_player_extend(t_cub3d *data);
+void			rotate_player(t_cub3d *data);
+
+void			draw_map(t_map *map, t_mlx_cube3d *mlx_data);
+void			draw_cube(float x, float y, int size, int color, t_mlx_cube3d *mlx_data);
+void			draw_line(float x1, float y1, float x2, float y2, int color, t_mlx_cube3d *mlx_data);
+
+void			my_put_pixel(mlx_image_t *img, uint32_t x, uint32_t y, uint32_t color);
+void			clear_image(t_mlx_cube3d *mlx_data);
+void			ft_background(uint32_t start, uint32_t color, mlx_image_t *img);
+void			handle_drawing(t_mlx_cube3d *mlx_data, t_cub3d *data);
+
+bool			touch(float px, float py, t_cub3d *data);
+void			ft_draw_loop(void* param);
+void			draw_ray_line(t_cub3d *data, float start_x, int i);
+void			draw_3d_ray_line(float ray_x, float ray_y, int i, t_cub3d *data);
 
 #endif

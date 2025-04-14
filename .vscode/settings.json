@@ -6,7 +6,15 @@
         "libft.h": "c",
         "algorithm": "c",
         "format": "c",
-        "time.h": "c"
+        "time.h": "c",
+        "string.h": "c",
+        "array": "c",
+        "string_view": "c",
+        "initializer_list": "c",
+        "span": "c",
+        "cmath": "c",
+        "cstdint": "c",
+        "iterator": "c"
     },
     "cmake.sourceDirectory": "/home/sbibers/cub3d/MLX42/tests"
 }
