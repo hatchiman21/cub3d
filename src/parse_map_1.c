@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map_1.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
+/*   By: sbibers <sbibers@student.42amman.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 12:12:06 by sbibers           #+#    #+#             */
-/*   Updated: 2025/04/13 22:46:16 by aatieh           ###   ########.fr       */
+/*   Updated: 2025/04/14 14:19:12 by sbibers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,11 @@ void	parse_map(t_cub3d *data)
 	check_map_2(data);
 	get_poisition_of_player(data);
 	data->map.copy_map = ft_dup_matrix(data->map.map, ft_strlen_matrix(data->map.map), 0);
+	if (!data->map.copy_map)
+	{
+		ft_free_split(data->map.map);
+		uncomplete_map(data, 0);
+	}
 	pad_map(data);
 	check_map_borders(data);
 	flood_fill(data, data->player.y, data->player.x);
