@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbibers <sbibers@student.42amman.com>      +#+  +:+       +#+        */
+/*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 22:30:30 by sbibers           #+#    #+#             */
-/*   Updated: 2025/04/09 18:48:52 by sbibers          ###   ########.fr       */
+/*   Updated: 2025/04/15 21:07:39 by aatieh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void	handle_memory_allocation(char *str, int fd)
 	if (str)
 		free(str);
 	close(fd);
-	ft_dprintf(2, "Error\nNULL check\n");
+	ft_putstr_fd("Error\nNULL check\n", 2);
 	exit(1);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_name_empty.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbibers <sbibers@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 22:32:03 by sbibers           #+#    #+#             */
-/*   Updated: 2025/04/11 23:44:29 by sbibers          ###   ########.fr       */
+/*   Updated: 2025/04/15 21:06:58 by aatieh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	check_file_name(char *file_name)
 
 	if (ft_strlen(file_name) <= 3)
 	{
-		ft_dprintf(2, "Error\nfile_name must final with .cub\n");
+		ft_putstr_fd("Error\nfile_name must final with .cub\n", 2);
 		exit(1);
 	}
 	i = 0;
@@ -33,7 +33,7 @@ void	check_file_name(char *file_name)
 	{
 		if (name[j--] != file_name[i--])
 		{
-			ft_dprintf(2, "Error\nfile_name must final with .cub\n");
+			ft_putstr_fd("Error\nfile_name must final with .cub\n", 2);
 			exit(1);
 		}
 	}
@@ -48,15 +48,15 @@ void	check_empty_read(char *map_name)
 	fd = open(map_name, O_RDONLY);
 	if (fd == -1)
 	{
-		ft_dprintf(2, "Error\ncan not read from the file ");
-		ft_dprintf(2, "or the file does not exist\n");
+		ft_putstr_fd("Error\ncan not read from the file ", 2);
+		ft_putstr_fd("or the file does not exist\n", 2);
 		exit(1);
 	}
 	byte_read = read(fd, buff, 1);
 	close(fd);
 	if (byte_read == 0)
 	{
-		ft_dprintf(2, "Error\nempty file\n");
+		ft_putstr_fd("Error\nempty file\n", 2);
 		exit(1);
 	}
 }

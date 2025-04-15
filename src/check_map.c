@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbibers <sbibers@student.42amman.com>      +#+  +:+       +#+        */
+/*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 14:14:08 by sbibers           #+#    #+#             */
-/*   Updated: 2025/04/15 19:09:44 by sbibers          ###   ########.fr       */
+/*   Updated: 2025/04/15 21:02:12 by aatieh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void	check_map(t_cub3d *data)
 			c = data->map.map[i][j];
 			if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
 				player_count++;
-			else if (c != '0' && c != '1' && c != ' ' && c != '\n')
+			else if (c != '0' && c != '1' && c != ' ' && c != '\n' && c != 'D')
 				uncomplete_map(data, 1);
 		}
 	}

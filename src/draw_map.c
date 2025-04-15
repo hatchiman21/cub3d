@@ -6,7 +6,7 @@
 /*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 06:19:52 by aatieh            #+#    #+#             */
-/*   Updated: 2025/04/15 19:44:36 by aatieh           ###   ########.fr       */
+/*   Updated: 2025/04/15 21:34:55 by aatieh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,24 @@ void	free_mlx_data(t_mlx_cube3d *mlx_data)
 	mlx_terminate(mlx_data->mlx);
 }
 
+void	ft_key_hook(mlx_key_data_t keydata, void* param)
+{
+	t_cub3d		*data;
+	int			next_x;
+	int			next_y;
+
+	data = (t_cub3d *)param;
+	next_x = data->player.x + SPEED * COLISION  * cos(data->player.angle);
+	next_y = data->player.y + SPEED * COLISION  * sin(data->player.angle);
+	if (keydata.key == MLX_KEY_SPACE && keydata.action == MLX_RELEASE)
+	{
+		if (data->map.map[next_y / BLOCK][next_x / BLOCK] == 'D')
+			data->map.map[next_y / BLOCK][next_x / BLOCK] = 'O';
+		else if (data->map.map[next_y / BLOCK][next_x / BLOCK] == 'O')
+			data->map.map[next_y / BLOCK][next_x / BLOCK] = 'D';
+	}
+}
+
 void	handle_drawing(t_mlx_cube3d *mlx_data, t_cub3d *data)
 {
 	mlx_data->mlx = mlx_init(CUB_WIDTH, CUB_HEIGHT, "game", false);
@@ -148,6 +166,7 @@ void	handle_drawing(t_mlx_cube3d *mlx_data, t_cub3d *data)
 	data->player.y *= BLOCK;
 	data->player.x_delta = 0;
 	mlx_image_to_window(mlx_data->mlx, mlx_data->img, 0, 0);
+	mlx_key_hook(mlx_data->mlx, ft_key_hook, data);
 	mlx_cursor_hook(mlx_data->mlx, mouse_handler, data);
 	mlx_loop_hook(mlx_data->mlx, ft_draw_loop, data);
 	mlx_loop(mlx_data->mlx);

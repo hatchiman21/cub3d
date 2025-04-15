@@ -6,7 +6,7 @@
 /*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 06:22:37 by aatieh            #+#    #+#             */
-/*   Updated: 2025/04/15 19:48:02 by aatieh           ###   ########.fr       */
+/*   Updated: 2025/04/15 21:56:30 by aatieh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ bool	touch(float px, float py, t_cub3d *data)
 
 	x = px / BLOCK;
 	y = py / BLOCK;
-	if(data->map.map[y][x] == '1')
+	if(data->map.map[y][x] == '1' || data->map.map[y][x] == 'D')
 		return (true);
 	// if (px / BLOCK - (float)x > 0.005 && py / BLOCK - (float)y > 0.005)
 	// 	printf("px: %f, py: %f, x: %d, y: %d\n", px, py, x, y);
@@ -67,26 +67,31 @@ void	perform_DDA(t_ray *ray, t_cub3d *data)
 {
 	while(1)
 	{
-	  if(ray->sideDistX < ray->sideDistY)
-	  {
-		ray->sideDistX += ray->deltaDistX;
-		ray->mapX += ray->stepX;
-		ray->side = 0;
-	  }
-	  else
-	  {
-		ray->sideDistY += ray->deltaDistY;
-		ray->mapY += ray->stepY;
-		ray->side = 1;
-	  }
-	  if(data->map.map[ray->mapY][ray->mapX] == '1')
-	  	break;
+		if (ray->sideDistX < ray->sideDistY)
+		{
+			ray->sideDistX += ray->deltaDistX;
+			ray->mapX += ray->stepX;
+			ray->side = 0;
+		}
+		else
+		{
+			ray->sideDistY += ray->deltaDistY;
+			ray->mapY += ray->stepY;
+			ray->side = 1;
+		}
+		if (data->map.map[ray->mapY][ray->mapX] == '1' || data->map.map[ray->mapY][ray->mapX] == 'D')
+	  		break ;
+		// if (ray->side == 1 && data->map.map[ray->mapY][ray->mapX] == 'O' && ((ray->sideDistY + data->player.y) / BLOCK) > .25 ||)
+		// 	break ;
+		
 	}
 }
 
 mlx_texture_t	*get_texture(t_ray *ray, t_cub3d *data)
 {
-	if (ray->side == 0 && ray->rayDirX > 0)
+	if (data->map.map[ray->mapY][ray->mapX] == 'D' || data->map.map[ray->mapY][ray->mapX] == 'O')
+		return (data->mlx_data.door[0]);
+	else if (ray->side == 0 && ray->rayDirX > 0)
 		return (data->mlx_data.so);
 	else if (ray->side == 0 && ray->rayDirX < 0)
 		return (data->mlx_data.no);
@@ -180,18 +185,22 @@ void	draw_vertical_line(t_ray *ray, t_cub3d *data, int i)
 	{
 		texY = (int)texPos & (texture->width - 1);
 		texPos += step;
-		if (texX < 0) texX = 0;
-	if (texX >= (int)texture->width) texX = (int)texture->width - 1;
-	if (texY < 0) texY = 0;
-	if (texY >= (int)texture->height) texY = (int)texture->height - 1;
-		  int pixel_index = (texY * texture->width + texX) * 4;
-		  	uint8_t r = texture->pixels[pixel_index + 0];
-			uint8_t g = texture->pixels[pixel_index + 1];
-			uint8_t b = texture->pixels[pixel_index + 2];
-			uint8_t a = texture->pixels[pixel_index + 3];
-			color = (r << 24) | (g << 16) | (b << 8) | a;
-			my_put_pixel(data->mlx_data.img, i, drawStart++, color);
-		}
+		if (texX < 0)
+			texX = 0;
+		if (texX >= (int)texture->width)
+			texX = (int)texture->width - 1;
+		if (texY < 0)
+			texY = 0;
+		if (texY >= (int)texture->height)
+			texY = (int)texture->height - 1;
+		int pixel_index = (texY * texture->width + texX) * 4;
+		uint8_t r = texture->pixels[pixel_index + 0];
+		uint8_t g = texture->pixels[pixel_index + 1];
+		uint8_t b = texture->pixels[pixel_index + 2];
+		uint8_t a = texture->pixels[pixel_index + 3];
+		color = (r << 24) | (g << 16) | (b << 8) | a;
+		my_put_pixel(data->mlx_data.img, i, drawStart++, color);
+	}
 }
 
 void	draw_ray_line(t_cub3d *data, float ray_angle, int i)

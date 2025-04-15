@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map_2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbibers <sbibers@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 22:05:48 by sbibers           #+#    #+#             */
-/*   Updated: 2025/04/12 19:24:51 by sbibers          ###   ########.fr       */
+/*   Updated: 2025/04/15 21:07:20 by aatieh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	exit_allocation(char **split, t_cub3d *data)
 {
 	ft_free_split(split);
 	free(data->file.all_file);
-	ft_dprintf(2, "Error\nAllocation failed\n");
+	ft_putstr_fd("Error\nAllocation failed\n", 2);
 	exit(1);
 }
 
@@ -68,7 +68,7 @@ char	**create_2darray(t_cub3d *data)
 	if (!split)
 	{
 		free(data->file.all_file);
-		ft_dprintf(2, "Error\nAllocation failed\n");
+		ft_putstr_fd("Error\nAllocation failed\n", 2);
 		exit(1);
 	}
 	creat_2darray_2(0, 0, split, data);

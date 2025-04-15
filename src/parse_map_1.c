@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map_1.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbibers <sbibers@student.42amman.com>      +#+  +:+       +#+        */
+/*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 12:12:06 by sbibers           #+#    #+#             */
-/*   Updated: 2025/04/15 19:13:06 by sbibers          ###   ########.fr       */
+/*   Updated: 2025/04/15 21:07:07 by aatieh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ void	check_complete_file(t_cub3d *data)
 			&& data->file.complete_file[i] != 'N'
 			&& data->file.complete_file[i] != 'S'
 			&& data->file.complete_file[i] != 'E'
-			&& data->file.complete_file[i] != 'W')
+			&& data->file.complete_file[i] != 'W'
+			&& data->file.complete_file[i] != 'D')
 			uncomplete_map(data, 1);
 		i++;
 	}
@@ -79,7 +80,7 @@ void	parse_map(t_cub3d *data)
 	data->file.all_file = NULL;
 	if (!data->file.split_all_file || !data->file.split_all_file[0])
 	{
-		ft_dprintf(2, "Error\nFailed to allocate split lines\n");
+		ft_putstr_fd("Error\nFailed to allocate split lines\n", 2);
 		exit(1);
 	}
 	trim_config_lines(data->file.split_all_file);

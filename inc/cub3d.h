@@ -6,7 +6,7 @@
 /*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 22:55:42 by aatieh            #+#    #+#             */
-/*   Updated: 2025/04/15 20:23:09 by aatieh           ###   ########.fr       */
+/*   Updated: 2025/04/15 21:45:11 by aatieh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,7 @@ typedef struct s_mlx_cube3d
 	mlx_texture_t	*so;
 	mlx_texture_t	*we;
 	mlx_texture_t	*ea;
+	mlx_texture_t	*door[2];
 }					t_mlx_cube3d;
 
 typedef struct s_player
@@ -141,6 +142,7 @@ typedef struct s_sprite
 	float			x;
 	float			y;
 	int				frame;
+	int				frame_count;
 	mlx_texture_t	*f[4];
 }					t_sprite;
 
@@ -184,7 +186,7 @@ char			**ft_dup_matrix(char **m, int size, int flag);
 
 void			determine_init_angle(t_cub3d *data);
 void			move_player(t_cub3d *data);
-void			move_player_extend(t_cub3d *data);
+void			move_player_extend(t_cub3d *data, float step_x, float step_y);
 void			rotate_player(t_cub3d *data);
 
 void			draw_map(t_map *map, t_mlx_cube3d *mlx_data);
@@ -199,7 +201,6 @@ void			handle_drawing(t_mlx_cube3d *mlx_data, t_cub3d *data);
 bool			touch(float px, float py, t_cub3d *data);
 void			ft_draw_loop(void* param);
 void			draw_ray_line(t_cub3d *data, float ray_angle, int i);
-void			draw_3d_ray_line(float ray_x, float ray_y, int i, t_cub3d *data);
 
 void	delete_textures(t_cub3d *data);
 
