@@ -6,7 +6,7 @@
 /*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 19:03:47 by aatieh            #+#    #+#             */
-/*   Updated: 2025/04/15 10:24:26 by aatieh           ###   ########.fr       */
+/*   Updated: 2025/04/15 12:51:22 by aatieh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -241,10 +241,16 @@
 
 void ft_background(uint32_t start, uint32_t color, mlx_image_t *img)
 {
-	for (uint32_t i = 0; i < CUB_WIDTH; ++i)
+	uint32_t	i;
+	uint32_t	y;
+
+	i = 0;
+	while (i < CUB_WIDTH)
 	{
-		for (uint32_t y = 0; y < CUB_HEIGHT / 2; ++y)
-			my_put_pixel(img, start + i, start + y, color);
+		y = 0;
+		while (y < CUB_HEIGHT / 2)
+			my_put_pixel(img, start + i, start + y++, color);
+		i++;
 	}
 }
 
@@ -262,15 +268,16 @@ void	my_put_pixel(mlx_image_t *img, uint32_t x, uint32_t y, uint32_t color)
 
 void	clear_image(t_mlx_cube3d *mlx_data)
 {
-	uint32_t	color;
+	uint32_t	i;
+	uint32_t	y;
 
-	for (uint32_t i = 0; i < mlx_data->img->width; ++i)
+	i = 0;
+	while (i < mlx_data->img->width)
 	{
-		for (uint32_t y = 0; y < mlx_data->img->height; ++y)
-		{
-			color = ft_pixel(0, 0, 0, 0xFF );
-			my_put_pixel(mlx_data->img, i, y, color);
-		}
+		y = 0;
+		while (y < mlx_data->img->height)
+			my_put_pixel(mlx_data->img, i, y++, 0x000000FF);
+		i++;
 	}
 }
 

@@ -1,7 +1,7 @@
-NO   ./texture/path_to_the_north_texture      
-SO   ./texture/path_to_the_south_texture           
-WE   ./texture/path_to_the_west_texture      
-EA   ./texture/path_to_the_east_texture
+NO   ./texture/colorstone.png      
+SO   ./texture/redbrick.png          
+WE   ./texture/wood.png
+EA   ./texture/mossy.png
 
 F   220,100,0
 C   225,30,0 

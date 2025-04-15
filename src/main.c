@@ -6,76 +6,28 @@
 /*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 17:32:26 by sbibers           #+#    #+#             */
-/*   Updated: 2025/04/14 17:39:58 by aatieh           ###   ########.fr       */
+/*   Updated: 2025/04/15 12:30:22 by aatieh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-void	make_grid_map(t_cub3d *data)
+void	save_textures(t_cub3d *data)
 {
-	int	i;
-	int	j;
-
-	i = 0;
-	data->map.width += 1;
-	data->map.height += 1;
-	data->map.grid_map = malloc(sizeof(char *) * (data->map.height + 2));
-	while (i < data->map.height)
+	data->mlx_data.no = mlx_load_png(data->bearings.no);
+	data->mlx_data.so = mlx_load_png(data->bearings.so);
+	data->mlx_data.we = mlx_load_png(data->bearings.we);
+	data->mlx_data.ea = mlx_load_png(data->bearings.ea);
+	if (!data->mlx_data.no || !data->mlx_data.so
+		|| !data->mlx_data.we || !data->mlx_data.ea)
 	{
-		data->map.grid_map[i] = malloc(sizeof(char) * (data->map.width));
-		i++;
+		ft_dprintf(2, "Error\nFailed to load textures\n");
+		uncomplete_map(data, 0);
 	}
-	i = 0;
-	while (i < data->map.height)
-	{
-		j = 0;
-		while (j < data->map.width)
-		{
-			// printf("%d %d\n", i, j);
-			data->map.grid_map[i][j] = '0';
-			j++;
-		}
-		data->map.grid_map[i][j] = '\0';
-		i++;
-	}
-	data->map.grid_map[i] = NULL;
-	i = 0;
-	while (i < data->map.height - 1)
-	{
-		j = 0;
-		while (j < data->map.width - 1)
-		{
-			if (data->map.map[i][j] == '1')
-			{
-				data->map.grid_map[i][j] = '1';
-				data->map.grid_map[i][j + 1] = '1';
-				data->map.grid_map[i + 1][j] = '1';
-				data->map.grid_map[i + 1][j + 1] = '1';
-			}
-			j++;
-		}
-		i++;
-	}
-}
-
-void	print_map(char **map, int height, int width)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (i < height)
-	{
-		j = 0;
-		while (j < width)
-		{
-			printf("%c", map[i][j]);
-			j++;
-		}
-		printf("\n");
-		i++;
-	}
+	free(data->bearings.ea);
+	free(data->bearings.no);
+	free(data->bearings.so);
+	free(data->bearings.we);
 }
 
 int	main(int argc, char *argv[])
@@ -99,6 +51,7 @@ int	main(int argc, char *argv[])
 	check_empty_read(argv[1]);
 	data.file.all_file = read_map(argv[1]);
 	parse_map(&data);
+	save_textures(&data);
 	// print_map(data.map.map, data.map.height, data.map.width);
 	// make_grid_map(&data);
 	// print_map(data.map.grid_map, data.map.height + 1, data.map.width + 1);

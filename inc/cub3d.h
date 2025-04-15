@@ -6,7 +6,7 @@
 /*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 22:55:42 by aatieh            #+#    #+#             */
-/*   Updated: 2025/04/15 10:26:10 by aatieh           ###   ########.fr       */
+/*   Updated: 2025/04/15 14:20:11 by aatieh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,22 @@
 # ifndef DEBUG
 #  define DEBUG 2
 # endif
-# define EPSILON 0.001f
+# define COLISION 15
+
+typedef struct s_ray
+{
+	int		mapX;
+	int		mapY;
+	float	sideDistX;
+	float	sideDistY;
+	float	deltaDistX;
+	float	deltaDistY;
+	int		stepX;
+	int		stepY;
+	int		side;
+	float	rayDirX;
+	float	rayDirY;
+}			t_ray;
 
 typedef struct s_data_normalize
 {
@@ -79,7 +94,6 @@ typedef struct s_map
 {
 	char		**map;
 	char		**copy_map;
-	char		**grid_map;
 	int			height;
 	int			width;
 }				t_map;
