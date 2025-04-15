@@ -6,7 +6,7 @@
 /*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 22:08:45 by sbibers           #+#    #+#             */
-/*   Updated: 2025/04/15 19:05:42 by aatieh           ###   ########.fr       */
+/*   Updated: 2025/04/15 19:46:13 by aatieh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,10 +85,4 @@ int	skip_spaces(char *str)
 		return (1);
 	else
 		return (0);
-}
-
-void	stop_create_map(t_cub3d *data)
-{
-	ft_free_split(data->map.map);
-	uncomplete_map(data, 1);
 }

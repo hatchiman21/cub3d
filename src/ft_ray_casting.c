@@ -6,7 +6,7 @@
 /*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 06:22:37 by aatieh            #+#    #+#             */
-/*   Updated: 2025/04/15 18:52:04 by aatieh           ###   ########.fr       */
+/*   Updated: 2025/04/15 19:48:02 by aatieh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,7 +161,6 @@ void	draw_vertical_line(t_ray *ray, t_cub3d *data, int i)
 	double step;
 	double texPos;
 	int texY;
-
 	if(ray->side == 0)
 		wallX = data->player.y / BLOCK + distance * ray->rayDirY;
 	else
@@ -171,7 +170,6 @@ void	draw_vertical_line(t_ray *ray, t_cub3d *data, int i)
 	texX = (int)(wallX * (double)(texture->width));
 	if (ray->side == 0 && ray->rayDirX > 0)
 		texX = texture->width - texX - 1;
-
 	else if (ray->side == 1 && ray->rayDirY < 0)
 	{
 		texX = texture->width - texX - 1;

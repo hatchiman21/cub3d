@@ -6,7 +6,7 @@
 /*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 19:03:47 by aatieh            #+#    #+#             */
-/*   Updated: 2025/04/15 17:59:43 by aatieh           ###   ########.fr       */
+/*   Updated: 2025/04/15 20:34:57 by aatieh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -281,6 +281,35 @@ void	clear_image(t_mlx_cube3d *mlx_data)
 	}
 }
 
+void	draw_sprite(t_cub3d *data, mlx_texture_t *texture, t_sprite *sprite)
+{
+	float zoom_h = 0.5;
+	float zoom_w = 0.5;
+	for (uint32_t y = 0; y < texture->height; ++y)
+	{
+		for (uint32_t x = 0; x < texture->width; ++x)
+		{
+			int i = (y * texture->width + x) * 4;
+			uint8_t r = texture->pixels[i + 0];
+			uint8_t g = texture->pixels[i + 1];
+			uint8_t b = texture->pixels[i + 2];
+			uint8_t a = texture->pixels[i + 3];
+			uint32_t color = (a << 24) | (r << 16) | (g << 8) | b;
+
+			// Draw scaled pixel
+			for (int dy = 0; dy < zoom_h; ++dy)
+			{
+				for (int dx = 0; dx < zoom_w; ++dx)
+				{
+					if (color != 0)
+						my_put_pixel(data->mlx_data.img, x * zoom_w + dx + sprite->x, y * zoom_h + dy + sprite->y, color);
+					// printf("x: %f, y: %f, color: %x\n", x * zoom_w + dx + sprite->x, y * zoom_h + dy + sprite->y, color);
+				}
+			}
+		}
+	}
+}
+
 void	ft_draw_loop(void* param)
 {
 	t_cub3d*	data;
@@ -289,8 +318,9 @@ void	ft_draw_loop(void* param)
 	int			i;
 
 	data = (t_cub3d *)param;
-	clear_image(&data->mlx_data);
+	// clear_image(&data->mlx_data);
 	ft_background(0, ft_pixel(data->arr_ceiling_color[0], data->arr_ceiling_color[1], data->arr_ceiling_color[2], 0xFF), data->mlx_data.img);
+	draw_sprite(data, data->moon.f[(int)(data->moon.frame++ / 20) % 4], &data->moon);
 	ft_background(CUB_HEIGHT / 2, ft_pixel(data->arr_floor_color[0], data->arr_floor_color[1], data->arr_floor_color[2], 0xFF), data->mlx_data.img);
 	// ft_background(CUB_HEIGHT / 2, 0xFFFFFFFF, data->mlx_data.img);
 	rotate_player(data);

@@ -14,7 +14,10 @@
         "span": "c",
         "cmath": "c",
         "cstdint": "c",
-        "iterator": "c"
+        "iterator": "c",
+        "chrono": "c",
+        "text_encoding": "c",
+        "typeinfo": "c"
     },
     "cmake.sourceDirectory": "/home/sbibers/cub3d/MLX42/tests"
 }

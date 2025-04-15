@@ -6,7 +6,7 @@
 /*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 06:19:52 by aatieh            #+#    #+#             */
-/*   Updated: 2025/04/15 19:15:05 by aatieh           ###   ########.fr       */
+/*   Updated: 2025/04/15 19:44:36 by aatieh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,9 +102,9 @@ void mouse_handler(double xdelta, double ydelta, void* param)
 	player = &data->player;
 	(void)ydelta;
 	if (xdelta < player->x_delta)
-		data->player.angle -= ROTATE_SPEED / 4;
+		data->player.angle -= ROTATE_SPEED / 1.5;
 	else if (xdelta > player->x_delta)
-		data->player.angle += ROTATE_SPEED / 4;
+		data->player.angle += ROTATE_SPEED / 1.5;
 	if (data->player.angle < 0)
 		data->player.angle += 2 * PI;
 	else if (data->player.angle > 2 * PI)

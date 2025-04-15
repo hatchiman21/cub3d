@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map_3.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbibers <sbibers@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbibers <sbibers@student.42amman.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 22:11:59 by sbibers           #+#    #+#             */
-/*   Updated: 2025/04/11 23:09:57 by sbibers          ###   ########.fr       */
+/*   Updated: 2025/04/15 19:00:14 by sbibers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,13 +87,18 @@ void	trim_config_lines(char **lines)
 	{
 		check = ft_strtrim(lines[i], " \t\n");
 		if (!check)
-			exit(ft_dprintf(2, "Error\ntrim failed\n"));
+		{
+			ft_free_split(lines);
+			ft_dprintf(2, "Error\nFailed to allocate split lines\n");
+			exit(1);
+		}
 		if (check_string(check))
 		{
 			free(check);
 			normalized = normalize_config_line(lines[i]);
 			if (!normalized)
 			{
+				ft_free_split(lines);
 				ft_dprintf(2, "Error\nnormalize failed\n");
 				exit(1);
 			}
