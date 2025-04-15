@@ -6,7 +6,7 @@
 /*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 06:22:37 by aatieh            #+#    #+#             */
-/*   Updated: 2025/04/15 17:59:20 by aatieh           ###   ########.fr       */
+/*   Updated: 2025/04/15 18:52:04 by aatieh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,43 +84,8 @@ void	perform_DDA(t_ray *ray, t_cub3d *data)
 	}
 }
 
-uint32_t	text_color(t_ray *ray, t_cub3d *data)
-{
-	(void)data;
-	if (ray->side == 0 && ray->rayDirX > 0)
-		return (0xFF0000FF);
-	else if (ray->side == 0 && ray->rayDirX < 0)
-		return (0x00FF00FF);
-	else if (ray->side == 1 && ray->rayDirY > 0)
-		return (0x0000FFFF);
-	else
-		return (0x00FFFFFF);
-	// mlx_texture_t	*texture;
-
-	// if (ray->side == 0 && ray->rayDirX > 0)
-	// 	texture = data->mlx_data.so;
-	// else if (ray->side == 0 && ray->rayDirX < 0)
-	// 	texture = data->mlx_data.no;
-	// else if (ray->side == 1 && ray->rayDirY > 0)
-	// 	texture = data->mlx_data.ea;
-	// else
-	// 	texture = data->mlx_data.we;
-	
-}
-
 mlx_texture_t	*get_texture(t_ray *ray, t_cub3d *data)
 {
-	// (void)data;
-	// if (ray->side == 0 && ray->rayDirX > 0)
-	// 	return (0xFF0000FF);
-	// else if (ray->side == 0 && ray->rayDirX < 0)
-	// 	return (0x00FF00FF);
-	// else if (ray->side == 1 && ray->rayDirY > 0)
-	// 	return (0x0000FFFF);
-	// else
-	// 	return (0x00FFFFFF);
-	// mlx_texture_t	*texture;
-
 	if (ray->side == 0 && ray->rayDirX > 0)
 		return (data->mlx_data.so);
 	else if (ray->side == 0 && ray->rayDirX < 0)
@@ -130,6 +95,44 @@ mlx_texture_t	*get_texture(t_ray *ray, t_cub3d *data)
 	else
 		return (data->mlx_data.we);
 }
+
+// void	handle_texture(t_ray *ray, t_cub3d *data, mlx_texture_t *texture)
+// {
+// 	t_texture	tex;
+
+// 	if(ray->side == 0)
+// 		tex.wallX = data->player.y / BLOCK + distance * ray->rayDirY;
+// 	else
+// 		tex.wallX = data->player.x / BLOCK + distance * ray->rayDirX;
+// 	tex.wallX -= floor((tex.wallX));
+// 	texture = get_texture(ray, data);
+// 	tex.texX = (int)(tex.wallX * (double)(tex.texture->width));
+// 	if (ray->side == 0 && ray->rayDirX > 0)
+// 		tex.texX = tex.texture->width - tex.texX - 1;
+
+// 	else if (ray->side == 1 && ray->rayDirY < 0)
+// 	{
+// 		tex.texX = tex.texture->width - tex.texX - 1;
+// 	}
+// 	step = 1.0 * tex.texture->width / lineHeight;
+// 	tex.texPos = (drawStart - (CUB_HEIGHT - lineHeight) / 2) * step;
+// 	while (drawStart <= drawEnd)
+// 	{
+// 		tex.texY = (int)tex.texPos & (tex.texture->width - 1);
+// 		tex.texPos += step;
+// 		if (tex.texX < 0) tex.texX = 0;
+// 	if (tex.texX >= (int)tex.texture->width) tex.texX = (int)tex.texture->width - 1;
+// 	if (tex.texY < 0) tex.texY = 0;
+// 	if (tex.texY >= (int)tex.texture->height) tex.texY = (int)tex.texture->height - 1;
+// 		  int tex.pixel_index = (tex.texY * tex.texture->width + tex.texX) * 4;
+// 		  	uint8_t r = tex.texture->pixels[pixel_index + 0];
+// 			uint8_t g = tex.texture->pixels[pixel_index + 1];
+// 			uint8_t b = tex.texture->pixels[pixel_index + 2];
+// 			uint8_t a = tex.->pixels[tex.pixel_index + 3];
+// 			color = (r << 24) |texture (g << 16) | (b << 8) | a;
+// 			my_put_pixel(data->mlx_data.img, i, drawStart++, color);
+// 		}
+// }
 
 void	draw_vertical_line(t_ray *ray, t_cub3d *data, int i)
 {
@@ -145,8 +148,6 @@ void	draw_vertical_line(t_ray *ray, t_cub3d *data, int i)
 		distance = (ray->mapY - (data->player.y / BLOCK)
 		+ (1 - ray->stepY) / 2) / ray->rayDirY;
 	lineHeight = (int)(CUB_HEIGHT / distance);
-	// if (lineHeight > CUB_HEIGHT)
-	// 	lineHeight = CUB_HEIGHT;
 	drawStart = -lineHeight / 2 + CUB_HEIGHT / 2;
 	if(drawStart < 0)
 		drawStart = 0;
@@ -155,7 +156,7 @@ void	draw_vertical_line(t_ray *ray, t_cub3d *data, int i)
 		drawEnd = CUB_HEIGHT - 1;
 	mlx_texture_t	*texture;
 	int texX;
-	double wallX; //where exactly the wall was hit
+	double wallX;
 	uint32_t color;
 	double step;
 	double texPos;
@@ -175,13 +176,10 @@ void	draw_vertical_line(t_ray *ray, t_cub3d *data, int i)
 	{
 		texX = texture->width - texX - 1;
 	}
-	// How much to increase the texture coordinate per screen pixel
 	step = 1.0 * texture->width / lineHeight;
-	// Starting texture coordinate
 	texPos = (drawStart - (CUB_HEIGHT - lineHeight) / 2) * step;
 	while (drawStart <= drawEnd)
 	{
-		// Cast the texture coordinate to integer, and mask with (texture->height - 1) in case of overflow
 		texY = (int)texPos & (texture->width - 1);
 		texPos += step;
 		if (texX < 0) texX = 0;
@@ -196,24 +194,6 @@ void	draw_vertical_line(t_ray *ray, t_cub3d *data, int i)
 			color = (r << 24) | (g << 16) | (b << 8) | a;
 			my_put_pixel(data->mlx_data.img, i, drawStart++, color);
 		}
-// 	float zoom_h = 3.5;
-// 	for (uint32_t y = 0; y < texture->height; ++y)
-// 	{
-// 			int i = (y * texture->width + x) * 4;
-// 			uint8_t r = texture->pixels[i + 0];
-// 			uint8_t g = texture->pixels[i + 1];
-// 			uint8_t b = texture->pixels[i + 2];
-// 			uint8_t a = texture->pixels[i + 3];
-// 			uint32_t color = (a << 24) | (r << 16) | (g << 8) | b;
-
-// 			// Draw scaled pixel
-// 			for (int dy = 0; dy < zoom_h; ++dy)
-// 			{
-// 					my_put_pixel(data->mlx_data.img, x+ dx, y * zoom_h + dy, color);
-// 			}
-// 	}
-	// while (drawStart <= drawEnd)
-	// 	my_put_pixel(data->mlx_data.img, i, drawStart++, text_color(ray, data));
 }
 
 void	draw_ray_line(t_cub3d *data, float ray_angle, int i)

@@ -6,7 +6,7 @@
 /*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 22:08:45 by sbibers           #+#    #+#             */
-/*   Updated: 2025/04/15 17:57:34 by aatieh           ###   ########.fr       */
+/*   Updated: 2025/04/15 19:05:42 by aatieh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ int	ft_strlen_matrix(char **str)
 
 void	uncomplete_map(t_cub3d *data, int flag)
 {
+	if (data->map.map)
+		ft_free_split(data->map.map);
 	if (data->file.split_all_file)
 		ft_free_split(data->file.split_all_file);
 	if (data->bearings.ea)
@@ -44,7 +46,7 @@ void	uncomplete_map(t_cub3d *data, int flag)
 		printf("Error\nWrong map\n");
 	else if (flag == 0)
 		printf("Error\nMemory allocation faild\n");
-	if (flag != 2)
+	if (flag != 3)
 		exit(1);
 }
 

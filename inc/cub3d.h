@@ -6,7 +6,7 @@
 /*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 22:55:42 by aatieh            #+#    #+#             */
-/*   Updated: 2025/04/15 17:03:06 by aatieh           ###   ########.fr       */
+/*   Updated: 2025/04/15 19:12:34 by aatieh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,24 @@
 # endif
 # define COLISION 15
 
+typedef struct s_color
+{
+	uint8_t	r;
+	uint8_t	g;
+	uint8_t	b;
+	uint8_t	a;
+}			t_color;
+
+typedef struct s_texture
+{
+	mlx_texture_t	*texture;
+	int texX;
+	double wallX;
+	uint32_t color;
+	double step;
+	double texPos;
+	int texY;
+}				t_texture;
 typedef struct s_ray
 {
 	int		mapX;
@@ -173,5 +191,7 @@ bool			touch(float px, float py, t_cub3d *data);
 void			ft_draw_loop(void* param);
 void			draw_ray_line(t_cub3d *data, float ray_angle, int i);
 void			draw_3d_ray_line(float ray_x, float ray_y, int i, t_cub3d *data);
+
+void	delete_textures(t_cub3d *data);
 
 #endif
