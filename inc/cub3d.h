@@ -6,7 +6,7 @@
 /*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 22:55:42 by aatieh            #+#    #+#             */
-/*   Updated: 2025/04/15 14:20:11 by aatieh           ###   ########.fr       */
+/*   Updated: 2025/04/15 17:03:06 by aatieh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,7 @@ typedef struct s_player
 	float	x;
 	float	y;
 	float	angle;
+	double	x_delta;
 }			t_player;
 
 typedef struct s_cub3d

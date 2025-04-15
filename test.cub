@@ -2,14 +2,12 @@
 
 
 
-      NO                  ./texture/path_to_the_north_texture      
-SO                     ./texture/path_to_the_south_texture           
-
-             WE        ./texture/path_to_the_west_texture      
-
-EA ./texture/path_to_the_east_texture
-
+NO   ./texture/colorstone.png      
                  F                              220          ,100,               0
+SO   ./texture/redbrick.png          
+EA   ./texture/mossy.png
+WE   ./texture/wood.png
+
 
      C                  225                  ,30,0 
 
@@ -19,7 +17,7 @@ EA ./texture/path_to_the_east_texture
                         11101
 11000001110101011111011100N0111
 11110111 1110101 101111010001
-11111111 1111111111111111111
+11111111 11111111111111111111
 
             
 

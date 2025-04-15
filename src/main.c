@@ -6,7 +6,7 @@
 /*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 17:32:26 by sbibers           #+#    #+#             */
-/*   Updated: 2025/04/15 12:30:22 by aatieh           ###   ########.fr       */
+/*   Updated: 2025/04/15 17:35:23 by aatieh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ void	save_textures(t_cub3d *data)
 		ft_dprintf(2, "Error\nFailed to load textures\n");
 		uncomplete_map(data, 0);
 	}
-	free(data->bearings.ea);
-	free(data->bearings.no);
-	free(data->bearings.so);
-	free(data->bearings.we);
+	// free(data->bearings.ea);
+	// free(data->bearings.no);
+	// free(data->bearings.so);
+	// free(data->bearings.we);
 }
 
 int	main(int argc, char *argv[])

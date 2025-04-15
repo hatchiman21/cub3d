@@ -6,7 +6,7 @@
 /*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 06:19:52 by aatieh            #+#    #+#             */
-/*   Updated: 2025/04/14 19:44:37 by aatieh           ###   ########.fr       */
+/*   Updated: 2025/04/15 17:59:28 by aatieh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,16 +93,50 @@ void	draw_map(t_map *map, t_mlx_cube3d *mlx_data)
 	}
 }
 
+void mouse_handler(double xdelta, double ydelta, void* param)
+{
+	t_cub3d		*data;
+	t_player	*player;
+
+	data = (t_cub3d *)param;
+	player = &data->player;
+	(void)ydelta;
+	if (xdelta < player->x_delta)
+		data->player.angle -= ROTATE_SPEED / 4;
+	else if (xdelta > player->x_delta)
+		data->player.angle += ROTATE_SPEED / 4;
+	if (data->player.angle < 0)
+		data->player.angle += 2 * PI;
+	else if (data->player.angle > 2 * PI)
+		data->player.angle -= 2 * PI;
+	player->x_delta = xdelta;
+}
+
+void	free_mlx_data(t_mlx_cube3d *mlx_data)
+{
+	if (mlx_data->no)
+		mlx_delete_texture(mlx_data->no);
+	if (mlx_data->so)
+		mlx_delete_texture(mlx_data->so);
+	if (mlx_data->we)
+		mlx_delete_texture(mlx_data->we);
+	if (mlx_data->ea)
+		mlx_delete_texture(mlx_data->ea);
+	mlx_delete_image(mlx_data->mlx, mlx_data->img);
+	mlx_terminate(mlx_data->mlx);
+}
+
 void	handle_drawing(t_mlx_cube3d *mlx_data, t_cub3d *data)
 {
-	mlx_data->mlx = mlx_init(CUB_WIDTH, CUB_HEIGHT, "game", true);
+	mlx_data->mlx = mlx_init(CUB_WIDTH, CUB_HEIGHT, "game", false);
 	mlx_data->img = mlx_new_image(mlx_data->mlx, CUB_WIDTH, CUB_HEIGHT);\
 	determine_init_angle(data);
 	data->player.x *= BLOCK;
 	data->player.y *= BLOCK;
+	data->player.x_delta = 0;
 	mlx_image_to_window(mlx_data->mlx, mlx_data->img, 0, 0);
+	mlx_cursor_hook(mlx_data->mlx, mouse_handler, data);
 	mlx_loop_hook(mlx_data->mlx, ft_draw_loop, data);
 	mlx_loop(mlx_data->mlx);
-	mlx_delete_image(mlx_data->mlx, mlx_data->img);
-	mlx_terminate(mlx_data->mlx);
+	free_mlx_data(mlx_data);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_1.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbibers <sbibers@student.42amman.com>      +#+  +:+       +#+        */
+/*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 22:08:45 by sbibers           #+#    #+#             */
-/*   Updated: 2025/04/14 14:16:55 by sbibers          ###   ########.fr       */
+/*   Updated: 2025/04/15 17:57:34 by aatieh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ void	uncomplete_map(t_cub3d *data, int flag)
 		printf("Error\nWrong map\n");
 	else if (flag == 0)
 		printf("Error\nMemory allocation faild\n");
-	exit(1);
+	if (flag != 2)
+		exit(1);
 }
 
 char	*ft_strndup(const char *s, int n)
