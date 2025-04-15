@@ -6,7 +6,7 @@
 /*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 22:24:52 by sbibers           #+#    #+#             */
-/*   Updated: 2025/04/13 22:47:31 by aatieh           ###   ########.fr       */
+/*   Updated: 2025/04/15 08:24:47 by aatieh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ void	get_poisition_of_player(t_cub3d *data)
 				|| data->map.map[i][j] == 'E' || data->map.map[i][j] == 'W')
 			{
 				data->player.c = data->map.map[i][j];
-				data->player.y = i;
-				data->player.x = j;
+				data->player.y = i + 0.5;
+				data->player.x = j + 0.5;
 			}
 			j++;
 		}

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   player_movment.c                                   :+:      :+:    :+:   */
+/*   player_movement.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 06:27:32 by aatieh            #+#    #+#             */
-/*   Updated: 2025/04/14 06:29:01 by aatieh           ###   ########.fr       */
+/*   Updated: 2025/04/15 09:20:02 by aatieh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ void	determine_init_angle(t_cub3d *data)
 	else if (data->player.c == 'S')
 		data->player.angle = 90 * (PI / 180);
 	else if (data->player.c == 'W')
-		data->player.angle = 0 * (PI / 180);
-	else if (data->player.c == 'E')
 		data->player.angle = 180 * (PI / 180);
+	else if (data->player.c == 'E')
+		data->player.angle = 0 * (PI / 180);
 }
 
 void	move_player_extend(t_cub3d *data)

@@ -6,7 +6,7 @@
 /*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 19:03:47 by aatieh            #+#    #+#             */
-/*   Updated: 2025/04/14 06:35:01 by aatieh           ###   ########.fr       */
+/*   Updated: 2025/04/15 10:24:26 by aatieh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@
 // 				rand() % 0xFF, // B
 // 				0xFF  // A
 // 			);
-// 			mlx_put_pixel(image, i, y, color);
+// 			my_put_pixel(image, i, y, color);
 // 		}
 // 	}
 // }
@@ -61,7 +61,7 @@
 // 				0, // B
 // 				0xFF  // A
 // 			);
-// 			mlx_put_pixel(image2, i, y, color);
+// 			my_put_pixel(image2, i, y, color);
 // 		}
 // 	}
 // }
@@ -154,7 +154,7 @@
 // 			{
 // 				for (int dx = 0; dx < zoom_w; ++dx)
 // 				{
-// 					mlx_put_pixel(data->mlx_data.img, x * zoom_w + dx, y * zoom_h + dy, color);
+// 					my_put_pixel(data->mlx_data.img, x * zoom_w + dx, y * zoom_h + dy, color);
 // 				}
 // 			}
 // 		}
@@ -244,7 +244,7 @@ void ft_background(uint32_t start, uint32_t color, mlx_image_t *img)
 	for (uint32_t i = 0; i < CUB_WIDTH; ++i)
 	{
 		for (uint32_t y = 0; y < CUB_HEIGHT / 2; ++y)
-			mlx_put_pixel(img, start + i, start + y, color);
+			my_put_pixel(img, start + i, start + y, color);
 	}
 }
 
@@ -255,18 +255,21 @@ int32_t ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a)
 
 void	my_put_pixel(mlx_image_t *img, uint32_t x, uint32_t y, uint32_t color)
 {
-	if (x <= CUB_WIDTH && y <= CUB_HEIGHT)
-		mlx_put_pixel(img, x, y, color);
+	// if (x >= img->width || y >= img->height)
+	// 	return ;
+	mlx_put_pixel(img, x, y, color);
 }
 
 void	clear_image(t_mlx_cube3d *mlx_data)
 {
+	uint32_t	color;
+
 	for (uint32_t i = 0; i < mlx_data->img->width; ++i)
 	{
 		for (uint32_t y = 0; y < mlx_data->img->height; ++y)
 		{
-			uint32_t color = ft_pixel(0, 0, 0, 0xFF );
-			mlx_put_pixel(mlx_data->img, i, y, color);
+			color = ft_pixel(0, 0, 0, 0xFF );
+			my_put_pixel(mlx_data->img, i, y, color);
 		}
 	}
 }
@@ -275,28 +278,40 @@ void	ft_draw_loop(void* param)
 {
 	t_cub3d*	data;
 	float		fraction;
-	float		start_x;
+	float		ray_angle;
 	int			i;
 
 	data = (t_cub3d *)param;
 	clear_image(&data->mlx_data);
-	// ft_background(0, ft_pixel(data->ceiling_color[0], data->ceiling_color[1], data->ceiling_color[2], 0xFF), data->mlx_data.img);
-	// ft_background(CUB_HEIGHT / 2, ft_pixel(data->floor_color[0], data->floor_color[1], data->floor_color[2], 0xFF), data->mlx_data.img);
-	ft_background(CUB_HEIGHT / 2, 0xFFFFFFFF, data->mlx_data.img);
+	ft_background(0, ft_pixel(data->arr_ceiling_color[0], data->arr_ceiling_color[1], data->arr_ceiling_color[2], 0xFF), data->mlx_data.img);
+	ft_background(CUB_HEIGHT / 2, ft_pixel(data->arr_floor_color[0], data->arr_floor_color[1], data->arr_floor_color[2], 0xFF), data->mlx_data.img);
+	// ft_background(CUB_HEIGHT / 2, 0xFFFFFFFF, data->mlx_data.img);
 	rotate_player(data);
 	move_player(data);
+	// printf("x: %f, y: %f, angle: %f\n", data->player.x, data->player.y, data->player.angle);
+	// printf("player true postion: %f, %f\n", data->player.x / BLOCK, data->player.y / BLOCK);
 	fraction = PI / 3 / CUB_WIDTH;
-	start_x = data->player.angle - PI / 6;
+	ray_angle = data->player.angle - PI / 6;
+	// ray_angle = data->player.angle;
 	i = 0;
-	while (i < CUB_WIDTH)
+	if (DEBUG == 1)
+		draw_ray_line(data, data->player.angle, CUB_WIDTH /2);
+	else
 	{
-		draw_ray_line(data, start_x, i++);
-		start_x += fraction;
+		while (i < CUB_WIDTH)
+		{
+			draw_ray_line(data, ray_angle, i++);
+			ray_angle += fraction;
+		}
 	}
 	if (DEBUG)
 	{
 		draw_map(&data->map, &data->mlx_data);
-		draw_cube(data->player.x / 4, data->player.y / 4, BLOCK / 32, 
-			0xFF0000FF, &data->mlx_data);	
+		if (DEBUG == 2)
+			draw_cube(data->player.x / 4, data->player.y / 4, 1, 
+			0xFF0000FF, &data->mlx_data);
+		else if (DEBUG == 1)
+			draw_cube(data->player.x, data->player.y, 1, 
+				0xFF0000FF, &data->mlx_data);	
 	}
 }

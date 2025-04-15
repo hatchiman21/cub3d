@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbibers <sbibers@student.42amman.com>      +#+  +:+       +#+        */
+/*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 22:55:42 by aatieh            #+#    #+#             */
-/*   Updated: 2025/04/14 14:15:39 by sbibers          ###   ########.fr       */
+/*   Updated: 2025/04/15 10:26:10 by aatieh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,10 @@
 # define CUB_WIDTH 1280
 # define CUB_HEIGHT 720
 # define BLOCK 32
-# define DEBUG 2
+# ifndef DEBUG
+#  define DEBUG 2
+# endif
+# define EPSILON 0.001f
 
 typedef struct s_data_normalize
 {
@@ -76,6 +79,7 @@ typedef struct s_map
 {
 	char		**map;
 	char		**copy_map;
+	char		**grid_map;
 	int			height;
 	int			width;
 }				t_map;
@@ -152,7 +156,7 @@ void			handle_drawing(t_mlx_cube3d *mlx_data, t_cub3d *data);
 
 bool			touch(float px, float py, t_cub3d *data);
 void			ft_draw_loop(void* param);
-void			draw_ray_line(t_cub3d *data, float start_x, int i);
+void			draw_ray_line(t_cub3d *data, float ray_angle, int i);
 void			draw_3d_ray_line(float ray_x, float ray_y, int i, t_cub3d *data);
 
 #endif
