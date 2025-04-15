@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
+/*   By: sbibers <sbibers@student.42amman.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 17:32:26 by sbibers           #+#    #+#             */
-/*   Updated: 2025/04/15 17:35:23 by aatieh           ###   ########.fr       */
+/*   Updated: 2025/04/15 19:17:02 by sbibers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	main(int argc, char *argv[])
 	// ft_free_split(data.map.map);
 	// uncomplete_map(&data, 1);
 	handle_drawing(&data.mlx_data, &data);
-	ft_free_split(data.map.map);
+	// ft_free_split(data.map.map);
 	uncomplete_map(&data, 2);
 	return (0);
 }

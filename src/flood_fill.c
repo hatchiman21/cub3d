@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   flood_fill.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
+/*   By: sbibers <sbibers@student.42amman.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 22:24:52 by sbibers           #+#    #+#             */
-/*   Updated: 2025/04/15 08:24:47 by aatieh           ###   ########.fr       */
+/*   Updated: 2025/04/15 19:11:29 by sbibers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,12 @@ void	flood_fill(t_cub3d *data, int y, int x)
 		ft_free_split(data->map.map);
 		uncomplete_map(data, 1);
 	}
-	if (data->map.copy_map[y][x] == ' ')
-	{
-		ft_free_split(data->map.copy_map);
-		ft_free_split(data->map.map);
-		uncomplete_map(data, 1);
-	}
+	// if (data->map.copy_map[y][x] == ' ')
+	// {
+	// 	ft_free_split(data->map.copy_map);
+	// 	ft_free_split(data->map.map);
+	// 	uncomplete_map(data, 1);
+	// }
 	if (data->map.copy_map[y][x] == '1' || data->map.copy_map[y][x] == '2')
 		return;
 	data->map.copy_map[y][x] = '2';
@@ -97,7 +97,6 @@ void	pad_map(t_cub3d *data)
 			if (!new_line)
 			{
 				ft_free_split(data->map.copy_map);
-				ft_free_split(data->map.map);
 				uncomplete_map(data, 0);
 			}
 			ft_memcpy(new_line, data->map.copy_map[y], len);
@@ -122,7 +121,6 @@ void	check_map_borders(t_cub3d *data)
 		if (data->map.copy_map[0][x] != '1' && data->map.copy_map[0][x] != ' ')
 		{
 			ft_free_split(data->map.copy_map);
-			ft_free_split(data->map.map);
 			uncomplete_map(data, 1);
 		}
 		x++;
@@ -134,7 +132,6 @@ void	check_map_borders(t_cub3d *data)
 		if (data->map.copy_map[last_row][x] != '1' && data->map.copy_map[last_row][x] != ' ')
 		{
 			ft_free_split(data->map.copy_map);
-			ft_free_split(data->map.map);
 			uncomplete_map(data, 1);
 		}
 		x++;
@@ -145,7 +142,6 @@ void	check_map_borders(t_cub3d *data)
 		if (data->map.copy_map[y][0] != '1' && data->map.copy_map[y][0] != ' ')
 		{
 			ft_free_split(data->map.copy_map);
-			ft_free_split(data->map.map);
 			uncomplete_map(data, 1);
 		}
 		last_char = ft_strlen(data->map.copy_map[y]) - 1;
@@ -154,7 +150,6 @@ void	check_map_borders(t_cub3d *data)
 			data->map.copy_map[y][last_char] != ' ')
 		{
 			ft_free_split(data->map.copy_map);
-			ft_free_split(data->map.map);
 			uncomplete_map(data, 1);
 		}
 		y++;

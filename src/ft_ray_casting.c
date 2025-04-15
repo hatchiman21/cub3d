@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_ray_casting.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
+/*   By: sbibers <sbibers@student.42amman.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 06:22:37 by aatieh            #+#    #+#             */
-/*   Updated: 2025/04/15 17:59:20 by aatieh           ###   ########.fr       */
+/*   Updated: 2025/04/15 19:16:49 by sbibers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,8 +145,6 @@ void	draw_vertical_line(t_ray *ray, t_cub3d *data, int i)
 		distance = (ray->mapY - (data->player.y / BLOCK)
 		+ (1 - ray->stepY) / 2) / ray->rayDirY;
 	lineHeight = (int)(CUB_HEIGHT / distance);
-	// if (lineHeight > CUB_HEIGHT)
-	// 	lineHeight = CUB_HEIGHT;
 	drawStart = -lineHeight / 2 + CUB_HEIGHT / 2;
 	if(drawStart < 0)
 		drawStart = 0;
@@ -155,12 +153,11 @@ void	draw_vertical_line(t_ray *ray, t_cub3d *data, int i)
 		drawEnd = CUB_HEIGHT - 1;
 	mlx_texture_t	*texture;
 	int texX;
-	double wallX; //where exactly the wall was hit
+	double wallX;
 	uint32_t color;
 	double step;
 	double texPos;
 	int texY;
-
 	if(ray->side == 0)
 		wallX = data->player.y / BLOCK + distance * ray->rayDirY;
 	else
@@ -170,18 +167,14 @@ void	draw_vertical_line(t_ray *ray, t_cub3d *data, int i)
 	texX = (int)(wallX * (double)(texture->width));
 	if (ray->side == 0 && ray->rayDirX > 0)
 		texX = texture->width - texX - 1;
-
 	else if (ray->side == 1 && ray->rayDirY < 0)
 	{
 		texX = texture->width - texX - 1;
 	}
-	// How much to increase the texture coordinate per screen pixel
 	step = 1.0 * texture->width / lineHeight;
-	// Starting texture coordinate
 	texPos = (drawStart - (CUB_HEIGHT - lineHeight) / 2) * step;
 	while (drawStart <= drawEnd)
 	{
-		// Cast the texture coordinate to integer, and mask with (texture->height - 1) in case of overflow
 		texY = (int)texPos & (texture->width - 1);
 		texPos += step;
 		if (texX < 0) texX = 0;
@@ -196,24 +189,6 @@ void	draw_vertical_line(t_ray *ray, t_cub3d *data, int i)
 			color = (r << 24) | (g << 16) | (b << 8) | a;
 			my_put_pixel(data->mlx_data.img, i, drawStart++, color);
 		}
-// 	float zoom_h = 3.5;
-// 	for (uint32_t y = 0; y < texture->height; ++y)
-// 	{
-// 			int i = (y * texture->width + x) * 4;
-// 			uint8_t r = texture->pixels[i + 0];
-// 			uint8_t g = texture->pixels[i + 1];
-// 			uint8_t b = texture->pixels[i + 2];
-// 			uint8_t a = texture->pixels[i + 3];
-// 			uint32_t color = (a << 24) | (r << 16) | (g << 8) | b;
-
-// 			// Draw scaled pixel
-// 			for (int dy = 0; dy < zoom_h; ++dy)
-// 			{
-// 					my_put_pixel(data->mlx_data.img, x+ dx, y * zoom_h + dy, color);
-// 			}
-// 	}
-	// while (drawStart <= drawEnd)
-	// 	my_put_pixel(data->mlx_data.img, i, drawStart++, text_color(ray, data));
 }
 
 void	draw_ray_line(t_cub3d *data, float ray_angle, int i)

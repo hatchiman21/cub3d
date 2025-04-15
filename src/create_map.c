@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_map.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
+/*   By: sbibers <sbibers@student.42amman.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 22:21:13 by sbibers           #+#    #+#             */
-/*   Updated: 2025/04/14 16:39:45 by aatieh           ###   ########.fr       */
+/*   Updated: 2025/04/15 19:07:16 by sbibers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,7 @@ void	create_map_2(t_cub3d *data, int *i, int *j)
 	{
 		data->map.map[*j] = ft_strdup(data->file.split_all_file[*i]);
 		if (!data->map.map[*j])
-		{
-			ft_free_split(data->map.map);
 			uncomplete_map(data, 0);
-		}
 		(*i)++;
 		(*j)++;
 	}

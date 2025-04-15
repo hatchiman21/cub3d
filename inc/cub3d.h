@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
+/*   By: sbibers <sbibers@student.42amman.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 22:55:42 by aatieh            #+#    #+#             */
-/*   Updated: 2025/04/15 17:03:06 by aatieh           ###   ########.fr       */
+/*   Updated: 2025/04/15 19:12:36 by sbibers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +150,6 @@ void			get_poisition_of_player(t_cub3d *data);
 void			flood_fill(t_cub3d *data, int player_y, int player_x);
 void			check_bearings_colors(t_cub3d *data);
 void			check_map_2(t_cub3d *data);
-void			stop_create_map(t_cub3d *data);
 void			check_map_borders(t_cub3d *data);
 void			pad_map(t_cub3d *data);
 char			**ft_dup_matrix(char **m, int size, int flag);

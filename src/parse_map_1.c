@@ -6,7 +6,7 @@
 /*   By: sbibers <sbibers@student.42amman.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 12:12:06 by sbibers           #+#    #+#             */
-/*   Updated: 2025/04/14 14:19:12 by sbibers          ###   ########.fr       */
+/*   Updated: 2025/04/15 19:13:06 by sbibers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,19 +53,19 @@ void	check_complete_file(t_cub3d *data)
 	data->file.complete_file = NULL;
 }
 
-void	convert_char_player(t_cub3d *data)
+void	flood_fill_2(t_cub3d *data)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-	while (data->map.map[i])
+	while (data->map.copy_map[i])
 	{
 		j = 0;
-		while (data->map.map[i][j])
+		while (data->map.copy_map[i][j])
 		{
-			if (data->player.y == i && data->player.x == j)
-				data->map.map[i][j] = 'P';
+			if (data->map.copy_map[i][j] == '0')
+				flood_fill(data, i, j);
 			j++;
 		}
 		i++;
@@ -91,13 +91,10 @@ void	parse_map(t_cub3d *data)
 	get_poisition_of_player(data);
 	data->map.copy_map = ft_dup_matrix(data->map.map, ft_strlen_matrix(data->map.map), 0);
 	if (!data->map.copy_map)
-	{
-		ft_free_split(data->map.map);
 		uncomplete_map(data, 0);
-	}
 	pad_map(data);
 	check_map_borders(data);
 	flood_fill(data, data->player.y, data->player.x);
+	flood_fill_2(data);
 	ft_free_split(data->map.copy_map);
-	convert_char_player(data);
 }
