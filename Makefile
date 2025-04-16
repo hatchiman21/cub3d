@@ -8,7 +8,7 @@ MLX = $(MLX42_DIR)/libmlx42.a
 
 SRCS = main read_map check_name_empty parse_map_1 parse_map_2 parse_map_3 parse_map_4 \
 		check_colors_textures flood_fill create_map utils_1 ft_ray_casting mlx_handle \
-		player_movement draw_map check_map utils_2
+		player_movement draw_map check_map utils_2 check_map_2
 SRCS := $(addprefix $(SRC_DIR)/, $(SRCS))
 SRCS := $(addsuffix .c, $(SRCS))
 OBJS = $(SRCS:$(SRC_DIR)/%.c=$(OBJS_DIR)/%.o)

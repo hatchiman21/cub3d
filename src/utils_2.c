@@ -6,7 +6,7 @@
 /*   By: sbibers <sbibers@student.42amman.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 14:16:00 by sbibers           #+#    #+#             */
-/*   Updated: 2025/04/14 14:16:06 by sbibers          ###   ########.fr       */
+/*   Updated: 2025/04/16 14:13:31 by sbibers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,22 @@ char	**ft_dup_matrix(char **m, int size, int flag)
 		ft_free_split(m);
 	str[i] = NULL;
 	return (str);
+}
+
+void	init_data(t_cub3d *data)
+{
+	data->map.map = NULL;
+	data->file.complete_file = NULL;
+	data->floor_color = NULL;
+	data->ceiling_color = NULL;
+	data->bearings.ea = NULL;
+	data->bearings.no = NULL;
+	data->bearings.so = NULL;
+	data->bearings.we = NULL;
+	data->counter.count_ea = 0;
+	data->counter.count_no = 0;
+	data->counter.count_so = 0;
+	data->counter.count_we = 0;
+	data->counter.count_floor_color = 0;
+	data->counter.count_ceiling_color = 0;
 }

@@ -6,29 +6,11 @@
 /*   By: sbibers <sbibers@student.42amman.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 22:13:49 by sbibers           #+#    #+#             */
-/*   Updated: 2025/04/15 19:21:37 by sbibers          ###   ########.fr       */
+/*   Updated: 2025/04/16 14:14:05 by sbibers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
-
-void	init_data(t_cub3d *data)
-{
-	data->map.map = NULL;
-	data->file.complete_file = NULL;
-	data->floor_color = NULL;
-	data->ceiling_color = NULL;
-	data->bearings.ea = NULL;
-	data->bearings.no = NULL;
-	data->bearings.so = NULL;
-	data->bearings.we = NULL;
-	data->counter.count_ea = 0;
-	data->counter.count_no = 0;
-	data->counter.count_so = 0;
-	data->counter.count_we = 0;
-	data->counter.count_floor_color = 0;
-	data->counter.count_ceiling_color = 0;
-}
 
 static void	parse_color_line(t_cub3d *data, char *line)
 {
@@ -48,6 +30,24 @@ static void	parse_color_line(t_cub3d *data, char *line)
 	}
 }
 
+static void	parse_texture_line_2(t_cub3d *data, char *line)
+{
+	if (ft_strncmp(line, "WE ", 3) == 0)
+	{
+		data->bearings.we = ft_strndup(line + 3, ft_strlen(line) - 3);
+		if (!data->bearings.we)
+			uncomplete_map(data, 0);
+		data->counter.count_we++;
+	}
+	else if (ft_strncmp(line, "EA ", 3) == 0)
+	{
+		data->bearings.ea = ft_strndup(line + 3, ft_strlen(line) - 3);
+		if (!data->bearings.ea)
+			uncomplete_map(data, 0);
+		data->counter.count_ea++;
+	}
+}
+
 static void	parse_texture_line(t_cub3d *data, char *line)
 {
 	if (ft_strncmp(line, "NO ", 3) == 0)
@@ -64,20 +64,8 @@ static void	parse_texture_line(t_cub3d *data, char *line)
 			uncomplete_map(data, 0);
 		data->counter.count_so++;
 	}
-	else if (ft_strncmp(line, "WE ", 3) == 0)
-	{
-		data->bearings.we = ft_strndup(line + 3, ft_strlen(line) - 3);
-		if (!data->bearings.we)
-			uncomplete_map(data, 0);
-		data->counter.count_we++;
-	}
-	else if (ft_strncmp(line, "EA ", 3) == 0)
-	{
-		data->bearings.ea = ft_strndup(line + 3, ft_strlen(line) - 3);
-		if (!data->bearings.ea)
-			uncomplete_map(data, 0);
-		data->counter.count_ea++;
-	}
+	else
+		parse_texture_line_2(data, line);
 }
 
 static void	parse_other_lines(t_cub3d *data, char *line)

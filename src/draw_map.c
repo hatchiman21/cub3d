@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   draw_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
+/*   By: sbibers <sbibers@student.42amman.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 06:19:52 by aatieh            #+#    #+#             */
-/*   Updated: 2025/04/15 21:34:55 by aatieh           ###   ########.fr       */
+/*   Updated: 2025/04/16 14:17:34 by sbibers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-void	draw_line(float x0, float y0, float x1, float y1, int color, t_mlx_cube3d *mlx_data)
+void	draw_line(float x0, float y0, float x1, float y1, int color,
+		t_mlx_cube3d *mlx_data)
 {
 	float	dx;
 	float	dy;
@@ -33,14 +34,15 @@ void	draw_line(float x0, float y0, float x1, float y1, int color, t_mlx_cube3d *
 	}
 }
 
-void	draw_triangle(float x, float y, int size, float angle,int color, t_mlx_cube3d *mlx_data)
+void	draw_triangle(float x, float y, int size, float angle, int color,
+		t_mlx_cube3d *mlx_data)
 {
-	float x1;
-	float y1;
-	float x2;
-	float y2;
-	float x3;
-	float y3;
+	float	x1;
+	float	y1;
+	float	x2;
+	float	y2;
+	float	x3;
+	float	y3;
 
 	x1 = x + size * cos(angle);
 	y1 = y + size * sin(angle);
@@ -84,7 +86,8 @@ void	draw_map(t_map *map, t_mlx_cube3d *mlx_data)
 		while (map->map[i][j])
 		{
 			if (map->map[i][j] == '1' && DEBUG != 1)
-				draw_cube(j * (BLOCK / 4), i * (BLOCK / 4), BLOCK / 4, 0x0000FFFF, mlx_data);
+				draw_cube(j * (BLOCK / 4), i * (BLOCK / 4), BLOCK / 4,
+						0x0000FFFF, mlx_data);
 			else if (map->map[i][j] == '1')
 				draw_cube(j * BLOCK, i * BLOCK, BLOCK, 0x0000FFFF, mlx_data);
 			j++;
@@ -93,7 +96,7 @@ void	draw_map(t_map *map, t_mlx_cube3d *mlx_data)
 	}
 }
 
-void mouse_handler(double xdelta, double ydelta, void* param)
+void	mouse_handler(double xdelta, double ydelta, void *param)
 {
 	t_cub3d		*data;
 	t_player	*player;
@@ -126,15 +129,15 @@ void	free_mlx_data(t_mlx_cube3d *mlx_data)
 	mlx_terminate(mlx_data->mlx);
 }
 
-void	ft_key_hook(mlx_key_data_t keydata, void* param)
+void	ft_key_hook(mlx_key_data_t keydata, void *param)
 {
-	t_cub3d		*data;
-	int			next_x;
-	int			next_y;
+	t_cub3d	*data;
+	int		next_x;
+	int		next_y;
 
 	data = (t_cub3d *)param;
-	next_x = data->player.x + SPEED * COLISION  * cos(data->player.angle);
-	next_y = data->player.y + SPEED * COLISION  * sin(data->player.angle);
+	next_x = data->player.x + SPEED * COLISION * cos(data->player.angle);
+	next_y = data->player.y + SPEED * COLISION * sin(data->player.angle);
 	if (keydata.key == MLX_KEY_SPACE && keydata.action == MLX_RELEASE)
 	{
 		if (data->map.map[next_y / BLOCK][next_x / BLOCK] == 'D')

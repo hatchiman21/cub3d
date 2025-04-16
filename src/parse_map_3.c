@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map_3.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
+/*   By: sbibers <sbibers@student.42amman.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 22:11:59 by sbibers           #+#    #+#             */
-/*   Updated: 2025/04/15 21:07:32 by aatieh           ###   ########.fr       */
+/*   Updated: 2025/04/16 13:39:33 by sbibers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static char	*normalize_config_line(const char *line)
 	return (data.final);
 }
 
-int	check_string(char *check)
+static int	check_string(char *check)
 {
 	if ((ft_strncmp(check, "NO", 2) == 0 || ft_strncmp(check, "SO", 2) == 0
 			|| ft_strncmp(check, "WE", 2) == 0 || ft_strncmp(check, "EA",
@@ -74,6 +74,16 @@ int	check_string(char *check)
 			&& ft_strncmp(check, "0", 1) != 0))
 		return (1);
 	return (0);
+}
+
+static void	trim_config_2(char **lines, int flag)
+{
+	ft_free_split(lines);
+	if (flag == 1)
+		ft_putstr_fd("Error\nFailed to allocate split lines\n", 2);
+	else
+		ft_putstr_fd("Error\nnormalize failed\n", 2);
+	exit(1);
 }
 
 void	trim_config_lines(char **lines)
@@ -87,21 +97,13 @@ void	trim_config_lines(char **lines)
 	{
 		check = ft_strtrim(lines[i], " \t\n");
 		if (!check)
-		{
-			ft_free_split(lines);
-			ft_putstr_fd("Error\nFailed to allocate split lines\n", 2);
-			exit(1);
-		}
+			trim_config_2(lines, 1);
 		if (check_string(check))
 		{
 			free(check);
 			normalized = normalize_config_line(lines[i]);
 			if (!normalized)
-			{
-				ft_free_split(lines);
-				ft_putstr_fd("Error\nnormalize failed\n", 2);
-				exit(1);
-			}
+				trim_config_2(lines, 0);
 			free(lines[i]);
 			lines[i] = normalized;
 		}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
+/*   By: sbibers <sbibers@student.42amman.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 14:14:08 by sbibers           #+#    #+#             */
-/*   Updated: 2025/04/15 21:02:12 by aatieh           ###   ########.fr       */
+/*   Updated: 2025/04/16 10:43:08 by sbibers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 static int	is_line_only_spaces(char *line)
 {
-	int	i = 0;
+	int	i;
 
+	i = 0;
 	if (!line)
 		return (1);
 	while (line[i])

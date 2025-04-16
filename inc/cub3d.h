@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
+/*   By: sbibers <sbibers@student.42amman.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 22:55:42 by aatieh            #+#    #+#             */
-/*   Updated: 2025/04/15 21:45:11 by aatieh           ###   ########.fr       */
+/*   Updated: 2025/04/16 14:13:48 by sbibers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,7 +177,6 @@ void			split_lines(t_cub3d *data);
 void			create_map(t_cub3d *data);
 void			check_map(t_cub3d *data);
 void			get_poisition_of_player(t_cub3d *data);
-void			flood_fill(t_cub3d *data, int player_y, int player_x);
 void			check_bearings_colors(t_cub3d *data);
 void			check_map_2(t_cub3d *data);
 void			check_map_borders(t_cub3d *data);
@@ -202,6 +201,12 @@ bool			touch(float px, float py, t_cub3d *data);
 void			ft_draw_loop(void* param);
 void			draw_ray_line(t_cub3d *data, float ray_angle, int i);
 
-void	delete_textures(t_cub3d *data);
+void			delete_textures(t_cub3d *data);
+
+
+void			pad_map(t_cub3d *data);
+void			check_map_borders(t_cub3d *data);
+void			flood_fill_2(t_cub3d *data, int player_y, int player_x);
+void			init_data(t_cub3d *data);
 
 #endif
