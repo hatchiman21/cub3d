@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_handle.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbibers <sbibers@student.42amman.com>      +#+  +:+       +#+        */
+/*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 19:03:47 by aatieh            #+#    #+#             */
-/*   Updated: 2025/04/16 14:20:54 by sbibers          ###   ########.fr       */
+/*   Updated: 2025/04/16 19:15:23 by aatieh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -242,14 +242,14 @@
 void ft_background(uint32_t start, uint32_t color, mlx_image_t *img)
 {
 	uint32_t	i;
-	uint32_t	y;
+	uint32_t	j;
 
 	i = 0;
 	while (i < CUB_WIDTH)
 	{
-		y = 0;
-		while (y < CUB_HEIGHT / 2)
-			my_put_pixel(img, start + i, start + y++, color);
+		j = 0;
+		while (j < CUB_HEIGHT / 2)
+			my_put_pixel(img, i, start + j++, color);
 		i++;
 	}
 }
@@ -261,24 +261,9 @@ int32_t ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a)
 
 void	my_put_pixel(mlx_image_t *img, uint32_t x, uint32_t y, uint32_t color)
 {
-	// if (x >= img->width || y >= img->height)
-	// 	return ;
+	if (x > img->width || y > img->height)
+		return ;
 	mlx_put_pixel(img, x, y, color);
-}
-
-void	clear_image(t_mlx_cube3d *mlx_data)
-{
-	uint32_t	i;
-	uint32_t	y;
-
-	i = 0;
-	while (i < mlx_data->img->width)
-	{
-		y = 0;
-		while (y < mlx_data->img->height)
-			my_put_pixel(mlx_data->img, i, y++, 0x000000FF);
-		i++;
-	}
 }
 
 void	draw_sprite(t_cub3d *data, mlx_texture_t *texture, t_sprite *sprite)
@@ -303,7 +288,6 @@ void	draw_sprite(t_cub3d *data, mlx_texture_t *texture, t_sprite *sprite)
 				{
 					if (color != 0)
 						my_put_pixel(data->mlx_data.img, x * zoom_w + dx + sprite->x, y * zoom_h + dy + sprite->y, color);
-					// printf("x: %f, y: %f, color: %x\n", x * zoom_w + dx + sprite->x, y * zoom_h + dy + sprite->y, color);
 				}
 			}
 		}
@@ -318,18 +302,13 @@ void	ft_draw_loop(void* param)
 	int			i;
 
 	data = (t_cub3d *)param;
-	// clear_image(&data->mlx_data);
 	ft_background(0, ft_pixel(data->arr_ceiling_color[0], data->arr_ceiling_color[1], data->arr_ceiling_color[2], 0xFF), data->mlx_data.img);
 	draw_sprite(data, data->moon.f[(int)(data->moon.frame++ / 20) % data->moon.frame_count], &data->moon);
 	ft_background(CUB_HEIGHT / 2, ft_pixel(data->arr_floor_color[0], data->arr_floor_color[1], data->arr_floor_color[2], 0xFF), data->mlx_data.img);
-	// ft_background(CUB_HEIGHT / 2, 0xFFFFFFFF, data->mlx_data.img);
 	rotate_player(data);
 	move_player(data);
-	// printf("x: %f, y: %f, angle: %f\n", data->player.x, data->player.y, data->player.angle);
-	// printf("player true postion: %f, %f\n", data->player.x / BLOCK, data->player.y / BLOCK);
 	fraction = PI / 3 / CUB_WIDTH;
 	ray_angle = data->player.angle - PI / 6;
-	// ray_angle = data->player.angle;
 	i = 0;
 	if (DEBUG == 1)
 		draw_ray_line(data, data->player.angle, CUB_WIDTH /2);

@@ -6,7 +6,7 @@
 /*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 06:22:37 by aatieh            #+#    #+#             */
-/*   Updated: 2025/04/15 21:56:30 by aatieh           ###   ########.fr       */
+/*   Updated: 2025/04/16 20:13:06 by aatieh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@ bool	touch(float px, float py, t_cub3d *data)
 
 	x = px / BLOCK;
 	y = py / BLOCK;
-	if(data->map.map[y][x] == '1' || data->map.map[y][x] == 'D')
+	if (y >= data->map.height || x >= data->map.width || data->map.map[y] == NULL
+		|| data->map.map[y][x] == '\0' || data->map.map[y][x] == ' '
+		|| data->map.map[y][x] == '1' || data->map.map[y][x] == 'D')
 		return (true);
 	// if (px / BLOCK - (float)x > 0.005 && py / BLOCK - (float)y > 0.005)
 	// 	printf("px: %f, py: %f, x: %d, y: %d\n", px, py, x, y);
@@ -79,10 +81,39 @@ void	perform_DDA(t_ray *ray, t_cub3d *data)
 			ray->mapY += ray->stepY;
 			ray->side = 1;
 		}
-		if (data->map.map[ray->mapY][ray->mapX] == '1' || data->map.map[ray->mapY][ray->mapX] == 'D')
+		if (ray->mapX < 0 || ray->mapY < 0
+			|| ray->mapY >= data->map.height
+			|| ray->mapX >= data->map.width
+			|| data->map.map[ray->mapY] == NULL
+			|| data->map.map[ray->mapY][ray->mapX] == '\0'
+			|| data->map.map[ray->mapY][ray->mapX] == ' '
+			|| data->map.map[ray->mapY][ray->mapX] == '1'
+			|| data->map.map[ray->mapY][ray->mapX] == 'D'
+			|| data->map.map[ray->mapY][ray->mapX] == 'O')
 	  		break ;
-		// if (ray->side == 1 && data->map.map[ray->mapY][ray->mapX] == 'O' && ((ray->sideDistY + data->player.y) / BLOCK) > .25 ||)
-		// 	break ;
+	// 		  double wallX;
+	// 		  double distance;
+	// 		  if (ray->side == 0)
+	// 	distance = (ray->mapX - (data->player.x / BLOCK)
+	// 	+ (1 - ray->stepX) / 2) / ray->rayDirX;
+	// else
+	// 	distance = (ray->mapY - (data->player.y / BLOCK)
+	// 	+ (1 - ray->stepY) / 2) / ray->rayDirY;
+	// 		  if(ray->side == 0)
+	// 			  wallX = data->player.y / BLOCK + distance * ray->rayDirY;
+	// 		  else
+	// 			  wallX = data->player.x / BLOCK + distance * ray->rayDirX;
+	// 		  wallX -= floor((wallX));
+			// ((ray->sideDistY + data->player.y / BLOCK) - (int)(ray->sideDistY + data->player.y / BLOCK)) < 0.75))
+			// if (data->map.map[ray->mapY][ray->mapX] == 'O' && (wallX <= 0.33 || wallX >= 0.66))
+			// {
+				// printf("ray->mapY: %d, ray->mapX: %d\n", ray->mapY, ray->mapX);
+				// printf("ray->sideDistY: %f, ray->sideDistX: %f\n", ray->sideDistY, ray->sideDistX);
+				// printf("ray->sideDistX: %f, ray->sideDistY: %f\n", ray->sideDistX, ray->sideDistY);
+				// printf("mapX: %d, player.x + ray->sideDistX: %f\n", ray->mapX, (data->player.x  / BLOCK + ray->sideDistX));
+				// printf("wallX: %f\n", wallX);
+				// break ;
+			// }
 		
 	}
 }
@@ -146,6 +177,9 @@ void	draw_vertical_line(t_ray *ray, t_cub3d *data, int i)
 	int		drawStart;
 	int		drawEnd;
 
+	if (ray->mapY >= data->map.height
+		|| ray->mapX >= data->map.width)
+			return ;
 	if (ray->side == 0)
 		distance = (ray->mapX - (data->player.x / BLOCK)
 		+ (1 - ray->stepX) / 2) / ray->rayDirX;
@@ -171,6 +205,12 @@ void	draw_vertical_line(t_ray *ray, t_cub3d *data, int i)
 	else
 		wallX = data->player.x / BLOCK + distance * ray->rayDirX;
 	wallX -= floor((wallX));
+	if (data->map.map[ray->mapY][ray->mapX] == 'O' && (wallX >= 0.33 && wallX <= 0.66))
+	{
+		perform_DDA(ray, data);
+		draw_vertical_line(ray, data, i);
+		return ;
+	}
 	texture = get_texture(ray, data);
 	texX = (int)(wallX * (double)(texture->width));
 	if (ray->side == 0 && ray->rayDirX > 0)

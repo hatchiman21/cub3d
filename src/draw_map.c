@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbibers <sbibers@student.42amman.com>      +#+  +:+       +#+        */
+/*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 06:19:52 by aatieh            #+#    #+#             */
-/*   Updated: 2025/04/16 14:17:34 by sbibers          ###   ########.fr       */
+/*   Updated: 2025/04/16 18:55:57 by aatieh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,11 @@ void	draw_map(t_map *map, t_mlx_cube3d *mlx_data)
 						0x0000FFFF, mlx_data);
 			else if (map->map[i][j] == '1')
 				draw_cube(j * BLOCK, i * BLOCK, BLOCK, 0x0000FFFF, mlx_data);
+			else if ((map->map[i][j] == 'D' || map->map[i][j] == 'O') && DEBUG != 1)
+				draw_cube(j * (BLOCK / 4), i * (BLOCK / 4), BLOCK / 4,
+						0x0FF0FFFF, mlx_data);
+			else if (map->map[i][j] == 'D' || map->map[i][j] == 'O')
+				draw_cube(j * BLOCK, i * BLOCK, BLOCK, 0x0FF0FFFF, mlx_data);
 			j++;
 		}
 		i++;
