@@ -6,11 +6,30 @@
 /*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 06:27:32 by aatieh            #+#    #+#             */
-/*   Updated: 2025/04/16 19:13:31 by aatieh           ###   ########.fr       */
+/*   Updated: 2025/04/17 21:24:06 by aatieh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
+
+void	mouse_handler(double xdelta, double ydelta, void *param)
+{
+	t_cub3d		*data;
+	t_player	*player;
+
+	data = (t_cub3d *)param;
+	player = &data->player;
+	(void)ydelta;
+	if (xdelta < player->x_delta)
+		data->player.angle -= ROTATE_SPEED / 1.5;
+	else if (xdelta > player->x_delta)
+		data->player.angle += ROTATE_SPEED / 1.5;
+	if (data->player.angle < 0)
+		data->player.angle += 2 * PI;
+	else if (data->player.angle > 2 * PI)
+		data->player.angle -= 2 * PI;
+	player->x_delta = xdelta;
+}
 
 void	determine_init_angle(t_cub3d *data)
 {
@@ -22,20 +41,21 @@ void	determine_init_angle(t_cub3d *data)
 		data->player.angle = 180 * (PI / 180);
 	else if (data->player.c == 'E')
 		data->player.angle = 0 * (PI / 180);
+	data->player.fraction = PI / (FOV / 2) / CUB_WIDTH;
 }
 
-void	move_player_extend(t_cub3d *data, float step_x, float step_y)
+void	move_player_extend(t_cub3d *data, t_move_player mv)
 {
 	if (mlx_is_key_down(data->mlx_data.mlx, MLX_KEY_A)
-		&& !touch(data->player.x + step_y, data->player.y - step_x, data)
-		&& !touch(data->player.x + step_y - (step_y * 0.5), data->player.y - step_x + (step_x * 0.5), data))
+		&& !touch(&data->player, mv.step1_y, -mv.step1_x, data)
+		&& !touch(&data->player, mv.step2_y, -mv.step2_x, data))
 	{
 		data->player.x += SPEED * sin(data->player.angle);
 		data->player.y -= SPEED * cos(data->player.angle);
 	}
 	else if (mlx_is_key_down(data->mlx_data.mlx, MLX_KEY_D)
-		&& !touch(data->player.x - step_y, data->player.y + step_x, data)
-		&& !touch(data->player.x - step_y + (step_y * 0.5), data->player.y + step_x - (step_x * 0.5), data))
+		&& !touch(&data->player, -mv.step1_y, mv.step1_x, data)
+		&& !touch(&data->player, -mv.step2_y, mv.step2_x, data))
 	{
 		data->player.x -= SPEED * sin(data->player.angle);
 		data->player.y += SPEED * cos(data->player.angle);
@@ -44,27 +64,28 @@ void	move_player_extend(t_cub3d *data, float step_x, float step_y)
 
 void	move_player(t_cub3d *data)
 {
-	float	step_x;
-	float	step_y;
+	t_move_player	mv;
 
-	step_x = SPEED * COLISION * cos(data->player.angle);
-	step_y = SPEED * COLISION * sin(data->player.angle);
+	mv.step1_x = COLISION * cos(data->player.angle + PI / 12);
+	mv.step1_y = COLISION * sin(data->player.angle + PI / 12);
+	mv.step2_x = COLISION * cos(data->player.angle - PI / 12);
+	mv.step2_y = COLISION * sin(data->player.angle - PI / 12);
 	if (mlx_is_key_down(data->mlx_data.mlx, MLX_KEY_W)
-		&& !touch(data->player.x + step_x, data->player.y + step_y, data)
-		&& !touch(data->player.x + step_x - (step_x * 0.5), data->player.y + step_y - (step_y * 0.5), data))
+		&& !touch(&data->player, mv.step1_x, mv.step1_y, data)
+		&& !touch(&data->player, mv.step2_x, mv.step2_y, data))
 	{
 		data->player.x += SPEED * cos(data->player.angle);
 		data->player.y += SPEED * sin(data->player.angle);
 	}
 	else if (mlx_is_key_down(data->mlx_data.mlx, MLX_KEY_S)
-		&& !touch(data->player.x - step_x , data->player.y - step_y, data)
-		&& !touch(data->player.x - step_x + (step_x * 0.5), data->player.y - step_y + (step_y * 0.5), data))
+		&& !touch(&data->player, -mv.step1_x, -mv.step1_y, data)
+		&& !touch(&data->player, -mv.step2_x, -mv.step2_y, data))
 	{
 		data->player.x -= SPEED * cos(data->player.angle);
 		data->player.y -= SPEED * sin(data->player.angle);
 	}
 	else
-		move_player_extend(data, step_x, step_y);
+		move_player_extend(data, mv);
 }
 
 void	rotate_player(t_cub3d *data)

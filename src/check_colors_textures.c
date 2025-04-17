@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_colors_textures.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbibers <sbibers@student.42amman.com>      +#+  +:+       +#+        */
+/*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 23:28:46 by sbibers           #+#    #+#             */
-/*   Updated: 2025/04/16 14:15:52 by sbibers          ###   ########.fr       */
+/*   Updated: 2025/04/17 18:17:31 by aatieh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,8 +114,8 @@ static void	check_comma(t_cub3d *data)
 void	check_bearings_colors(t_cub3d *data)
 {
 	check_comma(data);
-	check_colors_rgb(data, data->floor_color, data->arr_floor_color);
-	check_colors_rgb(data, data->ceiling_color, data->arr_ceiling_color);
+	check_colors_rgb(data, data->floor_color, data->bott_color);
+	check_colors_rgb(data, data->ceiling_color, data->top_color);
 	free(data->ceiling_color);
 	data->ceiling_color = NULL;
 	free(data->floor_color);
