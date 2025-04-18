@@ -13,12 +13,12 @@ EA   ./texture/mossy.png
 
 
 
-C 90,20,10
+C 0,0,0
 
 WE   ./texture/wood.png
 
 
-F 0,255,0
+F 255,255,255
 
 
 

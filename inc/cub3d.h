@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
+/*   By: sbibers <sbibers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 22:55:42 by aatieh            #+#    #+#             */
-/*   Updated: 2025/04/17 21:30:12 by aatieh           ###   ########.fr       */
+/*   Updated: 2025/04/18 12:45:17 by sbibers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -228,7 +228,8 @@ void			mouse_handler(double xdelta, double ydelta, void *param);
 void			draw_map(t_map *map, t_mlx_cube3d *mlx_data);
 void			draw_cube(float xy[2], int size, int color,
 					t_mlx_cube3d *mlx_data);
-void			draw_sprite(t_cub3d *data, mlx_texture_t *texture, t_sprite *sprite);
+void			draw_sprite(t_cub3d *data,
+					mlx_texture_t *texture, t_sprite *sprite);
 
 void			my_put_pixel(mlx_image_t *img, uint32_t x,
 					uint32_t y, uint32_t color);
