@@ -6,7 +6,7 @@
 /*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 06:19:52 by aatieh            #+#    #+#             */
-/*   Updated: 2025/04/17 21:23:58 by aatieh           ###   ########.fr       */
+/*   Updated: 2025/04/19 21:49:42 by aatieh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,18 +53,11 @@ void	draw_map(t_map *map, t_mlx_cube3d *mlx_data)
 	}
 }
 
-void	free_mlx_data(t_mlx_cube3d *mlx_data)
+void	free_mlx_data(t_cub3d *data)
 {
-	if (mlx_data->no)
-		mlx_delete_texture(mlx_data->no);
-	if (mlx_data->so)
-		mlx_delete_texture(mlx_data->so);
-	if (mlx_data->we)
-		mlx_delete_texture(mlx_data->we);
-	if (mlx_data->ea)
-		mlx_delete_texture(mlx_data->ea);
-	mlx_delete_image(mlx_data->mlx, mlx_data->img);
-	mlx_terminate(mlx_data->mlx);
+	delete_textures(data);
+	mlx_delete_image(data->mlx_data.mlx, data->mlx_data.img);
+	mlx_terminate(data->mlx_data.mlx);
 }
 
 void	ft_open_door(mlx_key_data_t keydata, void *param)
@@ -109,5 +102,5 @@ void	handle_drawing(t_mlx_cube3d *mlx_data, t_cub3d *data)
 	mlx_cursor_hook(mlx_data->mlx, mouse_handler, data);
 	mlx_loop_hook(mlx_data->mlx, ft_draw_loop, data);
 	mlx_loop(mlx_data->mlx);
-	free_mlx_data(mlx_data);
+	free_mlx_data(data);
 }

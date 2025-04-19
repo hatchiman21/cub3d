@@ -6,7 +6,7 @@
 /*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 12:12:06 by sbibers           #+#    #+#             */
-/*   Updated: 2025/04/17 18:47:59 by aatieh           ###   ########.fr       */
+/*   Updated: 2025/04/19 19:07:32 by aatieh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	check_complete_file(t_cub3d *data)
 		if (data->file.complete_file[i] != '0'
 			&& data->file.complete_file[i] != '1'
 			&& data->file.complete_file[i] != ' '
+			&& data->file.complete_file[i] != '\t'
 			&& data->file.complete_file[i] != '\n'
 			&& data->file.complete_file[i] != 'N'
 			&& data->file.complete_file[i] != 'S'
@@ -72,7 +73,7 @@ void	parse_map(t_cub3d *data)
 	check_map_2(data);
 	get_poisition_of_player(data);
 	data->map.copy_map = ft_dup_matrix(data->map.map,
-			ft_strlen_matrix(data->map.map), 0);
+	ft_strlen_matrix(data->map.map), 0);
 	if (!data->map.copy_map)
 		uncomplete_map(data, 0);
 	pad_map(data);

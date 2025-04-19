@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map_2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbibers <sbibers@student.42amman.com>      +#+  +:+       +#+        */
+/*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 11:04:54 by sbibers           #+#    #+#             */
-/*   Updated: 2025/04/16 13:33:43 by sbibers          ###   ########.fr       */
+/*   Updated: 2025/04/19 19:06:47 by aatieh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,14 @@ static void	check_map_borders_2(t_cub3d *data, int y)
 {
 	int	last_char;
 
-	if (data->map.copy_map[y][0] != '1' && data->map.copy_map[y][0] != ' ')
+	if (data->map.copy_map[y][0] != '1' && data->map.copy_map[y][0] != ' '
+		&& data->map.copy_map[y][0] != '\t')
 		stop_check_map_borders(data);
 	last_char = ft_strlen(data->map.copy_map[y]) - 1;
 	if (last_char >= 0
 		&& data->map.copy_map[y][last_char] != '1'
-		&& data->map.copy_map[y][last_char] != ' ')
+		&& data->map.copy_map[y][last_char] != ' '
+		&& data->map.copy_map[y][last_char] != '\t')
 		stop_check_map_borders(data);
 }
 
@@ -84,7 +86,7 @@ void	check_map_borders(t_cub3d *data)
 	x = -1;
 	while (data->map.copy_map[0][++x])
 	{
-		if (data->map.copy_map[0][x] != '1' && data->map.copy_map[0][x] != ' ')
+		if (data->map.copy_map[0][x] != '1' && data->map.copy_map[0][x] != ' ' && data->map.copy_map[0][x] != '\t')
 			stop_check_map_borders(data);
 	}
 	x = -1;
@@ -92,7 +94,8 @@ void	check_map_borders(t_cub3d *data)
 	while (data->map.copy_map[last_row][++x])
 	{
 		if (data->map.copy_map[last_row][x] != '1'
-			&& data->map.copy_map[last_row][x] != ' ')
+			&& data->map.copy_map[last_row][x] != ' '
+			&& data->map.copy_map[last_row][x] != '\t')
 			stop_check_map_borders(data);
 	}
 	y = -1;
