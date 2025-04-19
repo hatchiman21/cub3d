@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbibers <sbibers@student.42amman.com>      +#+  +:+       +#+        */
+/*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 17:32:26 by sbibers           #+#    #+#             */
-/*   Updated: 2025/04/16 12:44:39 by sbibers          ###   ########.fr       */
+/*   Updated: 2025/04/19 10:09:06 by aatieh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,10 @@ void	save_textures(t_cub3d *data)
 	data->moon.f[2] = mlx_load_png("./texture/moon/moon_frame_02.png");
 	data->moon.f[3] = mlx_load_png("./texture/moon/moon_frame_03.png");
 	data->mlx_data.door[0] = mlx_load_png("./texture/door.png");
+	data->mlx_data.bert[0] = mlx_load_png("./texture/bert/Bart_Devil_0.png");
+	data->mlx_data.bert[1] = mlx_load_png("./texture/bert/Bart_Devil_1.png");
+	data->mlx_data.bert[2] = mlx_load_png("./texture/bert/Bart_Devil_2.png");
+	data->mlx_data.bert[3] = mlx_load_png("./texture/bert/Bart_Devil_1.png");
 	data->moon.frame = 0;
 	data->moon.x = 500;
 	data->moon.y = 0;

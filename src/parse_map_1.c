@@ -6,7 +6,7 @@
 /*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 12:12:06 by sbibers           #+#    #+#             */
-/*   Updated: 2025/04/17 18:47:59 by aatieh           ###   ########.fr       */
+/*   Updated: 2025/04/19 10:11:25 by aatieh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ void	check_complete_file(t_cub3d *data)
 			&& data->file.complete_file[i] != 'S'
 			&& data->file.complete_file[i] != 'E'
 			&& data->file.complete_file[i] != 'W'
-			&& data->file.complete_file[i] != 'D')
+			&& data->file.complete_file[i] != 'D'
+			&& data->file.complete_file[i] != 'B')
 			uncomplete_map(data, 1);
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 19:03:47 by aatieh            #+#    #+#             */
-/*   Updated: 2025/04/17 21:25:24 by aatieh           ###   ########.fr       */
+/*   Updated: 2025/04/19 10:05:54 by aatieh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	ft_draw_loop(void *param)
 	data = (t_cub3d *)param;
 	ft_background(0, ft_pixel(data->top_color[0], data->top_color[1],
 			data->top_color[2], 0xFF), data->mlx_data.img);
-	draw_sprite(data, data->moon.f[(int)(data->moon.frame++ / 20)
+	draw_background_sprite(data, data->moon.f[(int)(data->moon.frame++ / 20)
 		% data->moon.frame_count], &data->moon);
 	ft_background(CUB_HEIGHT / 2, ft_pixel(data->bott_color[0],
 			data->bott_color[1], data->bott_color[2], 0xFF),
@@ -64,5 +64,5 @@ void	ft_draw_loop(void *param)
 	}
 	draw_map(&data->map, &data->mlx_data);
 	draw_cube((float []){data->player.x / 4, data->player.y / 4},
-		1, 0xFF0000FF, &data->mlx_data);
+		2, 0xFF0000FF, &data->mlx_data);
 }

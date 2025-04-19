@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ray_casting.c                                   :+:      :+:    :+:   */
+/*   ray_casting.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 06:22:37 by aatieh            #+#    #+#             */
-/*   Updated: 2025/04/17 21:19:45 by aatieh           ###   ########.fr       */
+/*   Updated: 2025/04/19 10:23:02 by aatieh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,16 +79,27 @@ void	perform_dda(t_ray *ray, t_cub3d *data)
 			|| data->map.map[ray->map_y][ray->map_x] == '\0'
 			|| data->map.map[ray->map_y][ray->map_x] == '1'
 			|| data->map.map[ray->map_y][ray->map_x] == 'D'
-			|| data->map.map[ray->map_y][ray->map_x] == 'O')
+			|| data->map.map[ray->map_y][ray->map_x] == 'O'
+			|| data->map.map[ray->map_y][ray->map_x] == 'B')
 			break ;
 	}
 }
 
 mlx_texture_t	*get_texture(t_ray *ray, t_cub3d *data)
 {
+	time_t	current_time;
+
 	if (data->map.map[ray->map_y][ray->map_x] == 'D'
 		|| data->map.map[ray->map_y][ray->map_x] == 'O')
 		return (data->mlx_data.door[0]);
+	else if (data->map.map[ray->map_y][ray->map_x] == 'B' && gettimeofday(current_time, NULL) % 4 == 0)
+		return (data->mlx_data.bert[0]);
+	else if (data->map.map[ray->map_y][ray->map_x] == 'B' && gettimeofday(NULL, NULL) % 4 == 1)
+		return (data->mlx_data.bert[1]);
+	else if (data->map.map[ray->map_y][ray->map_x] == 'B' && gettimeofday(NULL, NULL) % 4 == 2)
+		return (data->mlx_data.bert[2]);
+	else if (data->map.map[ray->map_y][ray->map_x] == 'B' && gettimeofday(NULL, NULL) % 4 == 3)
+		return (data->mlx_data.bert[3]);
 	else if (ray->side == 0 && ray->ray_dir_x > 0)
 		return (data->mlx_data.so);
 	else if (ray->side == 0 && ray->ray_dir_x < 0)
