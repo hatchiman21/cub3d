@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map_2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
+/*   By: sbibers <sbibers@student.42amman.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 11:04:54 by sbibers           #+#    #+#             */
-/*   Updated: 2025/04/19 19:06:47 by aatieh           ###   ########.fr       */
+/*   Updated: 2025/04/20 18:06:23 by sbibers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,9 @@ void	check_map_borders(t_cub3d *data)
 	x = -1;
 	while (data->map.copy_map[0][++x])
 	{
-		if (data->map.copy_map[0][x] != '1' && data->map.copy_map[0][x] != ' ' && data->map.copy_map[0][x] != '\t')
+		if (data->map.copy_map[0][x] != '1'
+			&& data->map.copy_map[0][x] != ' '
+			&& data->map.copy_map[0][x] != '\t')
 			stop_check_map_borders(data);
 	}
 	x = -1;
@@ -100,7 +102,5 @@ void	check_map_borders(t_cub3d *data)
 	}
 	y = -1;
 	while (data->map.copy_map[++y])
-	{
 		check_map_borders_2(data, y);
-	}
 }

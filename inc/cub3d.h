@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbibers <sbibers@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbibers <sbibers@student.42amman.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 22:55:42 by aatieh            #+#    #+#             */
-/*   Updated: 2025/04/18 12:45:17 by sbibers          ###   ########.fr       */
+/*   Updated: 2025/04/20 18:00:24 by sbibers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,6 +191,8 @@ typedef struct s_cub3d
 	t_player		player;
 	t_mlx_cube3d	mlx_data;
 	t_sprite		moon;
+	t_sprite		sprite_b[1024];
+	int				count_sprite;
 	char			*floor_color;
 	char			*ceiling_color;
 	int				bott_color[3];
@@ -249,5 +251,6 @@ void			pad_map(t_cub3d *data);
 void			check_map_borders(t_cub3d *data);
 void			flood_fill_2(t_cub3d *data, int player_y, int player_x);
 void			init_data(t_cub3d *data);
+void			check_sprite(t_cub3d *data);
 
 #endif

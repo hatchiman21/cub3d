@@ -3,21 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   single_ray.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
+/*   By: sbibers <sbibers@student.42amman.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 21:19:10 by aatieh            #+#    #+#             */
-/*   Updated: 2025/04/19 19:03:26 by aatieh           ###   ########.fr       */
+/*   Updated: 2025/04/20 18:09:20 by sbibers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-void define_line_height(t_vertival_line *ln, t_ray *ray, t_cub3d *data)
+void	define_line_height(t_vertival_line *ln, t_ray *ray, t_cub3d *data)
 {
 	if (ray->side == 0)
-		ln->distance = (ray->map_x - (data->player.x / BLOCK) + (1 - ray->step_x) / 2) / ray->ray_dir_x;
+		ln->distance = (ray->map_x - (data->player.x / BLOCK)
+				+ (1 - ray->step_x) / 2) / ray->ray_dir_x;
 	else
-		ln->distance = (ray->map_y - (data->player.y / BLOCK) + (1 - ray->step_y) / 2) / ray->ray_dir_y;
+		ln->distance = (ray->map_y - (data->player.y / BLOCK)
+				+ (1 - ray->step_y) / 2) / ray->ray_dir_y;
 	ln->line_height = (int)(CUB_HEIGHT / ln->distance);
 	ln->draw_start = -ln->line_height / 2 + CUB_HEIGHT / 2;
 	if (ln->draw_start < 0)
@@ -32,9 +34,9 @@ void define_line_height(t_vertival_line *ln, t_ray *ray, t_cub3d *data)
 	ln->wall_x -= floor((ln->wall_x));
 }
 
-void vertical_line_loop(t_vertival_line *ln, t_cub3d *data, int x)
+void	vertical_line_loop(t_vertival_line *ln, t_cub3d *data, int x)
 {
-	t_color cr;
+	t_color	cr;
 
 	while (ln->draw_start <= ln->draw_end)
 	{
@@ -58,18 +60,19 @@ void vertical_line_loop(t_vertival_line *ln, t_cub3d *data, int x)
 	}
 }
 
-void draw_vertical_line(t_ray *ray, t_cub3d *data, int x)
+void	draw_vertical_line(t_ray *ray, t_cub3d *data, int x)
 {
-	t_vertival_line ln;
+	t_vertival_line	ln;
 
 	if (ray->map_y >= data->map.height || ray->map_x >= data->map.width)
-		return;
+		return ;
 	define_line_height(&ln, ray, data);
-	if (data->map.map[ray->map_y][ray->map_x] == 'O' && (ln.wall_x >= 0.33 && ln.wall_x <= 0.66))
+	if (data->map.map[ray->map_y][ray->map_x] == 'O'
+		&& (ln.wall_x >= 0.33 && ln.wall_x <= 0.66))
 	{
 		perform_dda(ray, data);
 		draw_vertical_line(ray, data, x);
-		return;
+		return ;
 	}
 	ln.texture = get_texture(ray, data);
 	ln.tex_x = (int)(ln.wall_x * (double)(ln.texture->width));
