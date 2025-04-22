@@ -6,7 +6,7 @@
 /*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 21:25:08 by aatieh            #+#    #+#             */
-/*   Updated: 2025/04/22 13:35:38 by aatieh           ###   ########.fr       */
+/*   Updated: 2025/04/22 16:03:42 by aatieh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,9 @@ int	out_of_frame(t_cub3d *data, t_sprite *sprite)
 		x_2 = 0;
 	else if ((sin(angle) > 0 && cos(angle) > 0) || x_2 > data->map.width)
 		x_2 = data->map.width;
-	if (x_2 < data->map.width / 2)
+	if (x_2 < data->map.width * 0.5)
 		return (1);
-	sprite->x = ((data->map.width / 2 - x_1) / (x_2 - x_1)) * CUB_WIDTH;
+	sprite->x = ((data->map.width * 0.5 - x_1) / (x_2 - x_1)) * CUB_WIDTH;
 	return (0);
 }
 

@@ -1,23 +1,23 @@
-NO   ./texture/colorstone.png      
-SO   ./texture/redbrick.png          
+NO   ./texture/test1.png  
+SO   ./texture/test1.png        
 
 
 
 
 
 
-EA   ./texture/mossy.png
+EA   ./texture/test1.png
 
 
 
 
 
 C 0,25,25
-WE ./texture/wood.png
+WE ./texture/barrel.png
 F 255,255,255
 
-1111
-1WB1   
-1BD1
-1111
-		
+11111
+1W001  
+10D01
+10001
+11111		

@@ -6,7 +6,7 @@
 /*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 22:55:42 by aatieh            #+#    #+#             */
-/*   Updated: 2025/04/22 15:31:07 by aatieh           ###   ########.fr       */
+/*   Updated: 2025/04/22 16:24:21 by aatieh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 
 # define PI 3.14159265358979323846
 # define SPEED 4
-# define ROTATE_SPEED 0.05
+# define ROTATE_SPEED 0.03
 # define CUB_WIDTH 1280
 # define CUB_HEIGHT 720
 # define BLOCK 32
@@ -35,10 +35,10 @@
 
 typedef struct s_color
 {
-	uint8_t		r;
-	uint8_t		g;
-	uint8_t		b;
-	uint8_t		a;
+	uint32_t		r;
+	uint32_t		g;
+	uint32_t		b;
+	uint32_t		a;
 	uint32_t	color;
 }				t_color;
 

@@ -6,7 +6,7 @@
 /*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 21:19:10 by aatieh            #+#    #+#             */
-/*   Updated: 2025/04/22 15:31:41 by aatieh           ###   ########.fr       */
+/*   Updated: 2025/04/22 17:48:34 by aatieh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,16 @@ void	define_line_height(t_vertival_line *ln, t_ray *ray, t_cub3d *data)
 {
 	if (ray->side == 0)
 		ln->distance = (ray->map_x - (data->player.x / BLOCK)
-				+ (1 - ray->step_x) / 2) / ray->ray_dir_x;
+				+ (1 - ray->step_x) * 0.5) / ray->ray_dir_x;
 	else
 		ln->distance = (ray->map_y - (data->player.y / BLOCK)
-				+ (1 - ray->step_y) / 2) / ray->ray_dir_y;
+				+ (1 - ray->step_y) * 0.5) / ray->ray_dir_y;
 	ln->distance *=  cos(ray->angle - data->player.angle);
 	ln->line_height = (int)(CUB_HEIGHT / ln->distance);
-	ln->draw_start = -ln->line_height / 2 + CUB_HEIGHT / 2;
+	ln->draw_start = -ln->line_height * 0.5 + CUB_HEIGHT * 0.5;
 	if (ln->draw_start < 0)
 		ln->draw_start = 0;
-	ln->draw_end = ln->line_height / 2 + CUB_HEIGHT / 2;
+	ln->draw_end = ln->line_height * 0.5 + CUB_HEIGHT * 0.5;
 	if (ln->draw_end >= CUB_HEIGHT)
 		ln->draw_end = CUB_HEIGHT - 1;
 	if (ray->side == 0)
@@ -58,9 +58,8 @@ void	vertical_line_loop(t_vertival_line *ln, t_cub3d *data, int x)
 		cr.a = ln->texture->pixels[ln->pixel_index + 3];
 		cr.color = (cr.r << 24) | (cr.g << 16) | (cr.b << 8) | cr.a;
 		if (cr.a != 0)
-			my_put_pixel(data->mlx_data.img, x, ln->draw_start++, cr.color);
-		else
-			ln->draw_start++;
+			my_put_pixel(data->mlx_data.img, x, ln->draw_start, cr.color);
+		ln->draw_start++;
 	}
 }
 
@@ -83,10 +82,8 @@ void	draw_vertical_line(t_ray *ray, t_cub3d *data, int x)
 	if (ray->side == 0 && ray->ray_dir_x > 0)
 		ln.tex_x = ln.texture->width - ln.tex_x - 1;
 	else if (ray->side == 1 && ray->ray_dir_y < 0)
-	{
 		ln.tex_x = ln.texture->width - ln.tex_x - 1;
-	}
-	ln.step = 1.0 * ln.texture->width / ln.line_height;
-	ln.tex_pos = (ln.draw_start - (CUB_HEIGHT - ln.line_height) / 2) * ln.step;
+	ln.step = 1.0 * ln.texture->height / ln.line_height;
+	ln.tex_pos = (ln.draw_start - (CUB_HEIGHT - ln.line_height) * 0.5) * ln.step;
 	vertical_line_loop(&ln, data, x);
 }

@@ -6,7 +6,7 @@
 /*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 06:19:52 by aatieh            #+#    #+#             */
-/*   Updated: 2025/04/22 15:02:53 by aatieh           ###   ########.fr       */
+/*   Updated: 2025/04/22 16:03:42 by aatieh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,28 @@ void	draw_player(t_cub3d *data, t_player *player)
 		1, 0xFF0000FF, &data->mlx_data);
 }
 
+// void	draw_map_loop(t_map *map, t_mlx_cube3d *mlx_data, t_cub3d *data)
+// {
+// 	float	j;
+// 	float	ini_j;
+	
+// 	j = player_x - MINI_SIZE;
+// 		if (j < 0)
+// 			j = 0;
+// 		ini_j = j;
+// 		while (j < map->width && (j <= player_x + MINI_SIZE || j <= ini_j + (MINI_SIZE * 2)))
+// 		{
+// 			if (map->map[(int)i][(int)j] == '1')
+// 				draw_cube((float []){(j - ini_j) * (BLOCK / MINI_SCALE) + 2,(i - ini_i) * (BLOCK / MINI_SCALE) + 2},
+// 					BLOCK / MINI_SCALE, 0x0000FFFF, mlx_data);
+// 			else if ((map->map[(int)i][(int)j] == 'D' || map->map[(int)i][(int)j] == 'O'))
+// 				draw_cube((float []){j * (BLOCK / MINI_SCALE) + 2, i * (BLOCK / MINI_SCALE) + 2},
+// 					BLOCK / MINI_SCALE, 0x0FF0FFFF, mlx_data);
+// 			j++;
+// 		}
+// }
+
+
 void	draw_map(t_map *map, t_mlx_cube3d *mlx_data, t_cub3d *data)
 {
 	float	i;
@@ -78,16 +100,16 @@ void	draw_map(t_map *map, t_mlx_cube3d *mlx_data, t_cub3d *data)
 				draw_cube((float []){(j - ini_j) * (BLOCK / MINI_SCALE) + 2,(i - ini_i) * (BLOCK / MINI_SCALE) + 2},
 					BLOCK / MINI_SCALE, 0x0000FFFF, mlx_data);
 			else if ((map->map[(int)i][(int)j] == 'D' || map->map[(int)i][(int)j] == 'O'))
-				draw_cube((float []){j * (BLOCK / MINI_SCALE) + 2, i * (BLOCK / MINI_SCALE) + 2},
+				draw_cube((float []){(j - ini_j) * (BLOCK / MINI_SCALE) + 2, (i - ini_i) * (BLOCK / MINI_SCALE) + 2},
 					BLOCK / MINI_SCALE, 0x0FF0FFFF, mlx_data);
 			j++;
 		}
 		i++;
 	}
 	draw_cube((float []){0, 0},
-					(BLOCK) * (MINI_SIZE + 0.7) / 2, 0xFFFFFFFF, mlx_data);
+					(BLOCK) * (MINI_SIZE + 0.7) * 0.5, 0xFFFFFFFF, mlx_data);
 	draw_cube((float []){1, 1},
-					(BLOCK) * (MINI_SIZE + 0.7) / 2, 0xFFFFFFFF, mlx_data);
+					(BLOCK) * (MINI_SIZE + 0.7) * 0.5, 0xFFFFFFFF, mlx_data);
 	draw_player(data, &data->player);
 }
 
