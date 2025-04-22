@@ -6,7 +6,7 @@
 /*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 19:03:47 by aatieh            #+#    #+#             */
-/*   Updated: 2025/04/22 17:51:07 by aatieh           ###   ########.fr       */
+/*   Updated: 2025/04/22 18:13:53 by aatieh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,14 @@ void	ft_background(uint32_t start, uint32_t color, mlx_image_t *img)
 {
 	uint32_t	i;
 	uint32_t	j;
+	uint32_t	height;
 
 	i = 0;
+	height = CUB_HEIGHT * 0.5;
 	while (i < CUB_WIDTH)
 	{
 		j = 0;
-		while (j < CUB_HEIGHT * 0.5)
+		while (j < height)
 			my_put_pixel(img, i, start + j++, color);
 		i++;
 	}

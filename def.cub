@@ -13,7 +13,7 @@ EA   ./texture/test1.png
 
 
 C 0,25,25
-WE ./texture/barrel.png
+WE ./texture/moon.png
 F 255,255,255
 
 11111

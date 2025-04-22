@@ -6,7 +6,7 @@
 /*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 22:55:42 by aatieh            #+#    #+#             */
-/*   Updated: 2025/04/22 16:24:21 by aatieh           ###   ########.fr       */
+/*   Updated: 2025/04/22 18:04:59 by aatieh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,6 +200,7 @@ typedef struct s_cub3d
 	char			*ceiling_color;
 	int				bott_color[3];
 	int				top_color[3];
+	float			scale;
 }					t_cub3d;
 
 int				skip_spaces(char *str);

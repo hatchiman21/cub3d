@@ -6,7 +6,7 @@
 /*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 06:27:32 by aatieh            #+#    #+#             */
-/*   Updated: 2025/04/22 16:03:42 by aatieh           ###   ########.fr       */
+/*   Updated: 2025/04/22 18:07:31 by aatieh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	determine_init_angle(t_cub3d *data)
 	else if (data->player.c == 'E')
 		data->player.angle = 0 * (PI / 180);
 	data->player.fraction = PI / (FOV * 0.5) / CUB_WIDTH;
+	data->scale = BLOCK / MINI_SCALE;
 }
 
 void	move_player_extend(t_cub3d *data, t_move_player mv)
