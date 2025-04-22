@@ -6,7 +6,7 @@
 /*   By: sbibers <sbibers@student.42amman.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 11:04:54 by sbibers           #+#    #+#             */
-/*   Updated: 2025/04/20 18:06:23 by sbibers          ###   ########.fr       */
+/*   Updated: 2025/04/22 18:31:02 by sbibers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	pad_map_2(t_cub3d *data, int len, int max_len, int y)
 	if (!new_line)
 	{
 		ft_free_split(data->map.copy_map);
-		uncomplete_map(data, 0);
+		free_and_exit(data, "Error\nFaild to allocate\n");
 	}
 	ft_memcpy(new_line, data->map.copy_map[y], len);
 	ft_memset(new_line + len, ' ', max_len - len);
@@ -59,7 +59,7 @@ void	pad_map(t_cub3d *data)
 static void	stop_check_map_borders(t_cub3d *data)
 {
 	ft_free_split(data->map.copy_map);
-	uncomplete_map(data, 1);
+	free_and_exit(data, "Error\nWrong map\n");
 }
 
 static void	check_map_borders_2(t_cub3d *data, int y)

@@ -6,7 +6,7 @@
 /*   By: sbibers <sbibers@student.42amman.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 12:12:06 by sbibers           #+#    #+#             */
-/*   Updated: 2025/04/20 18:06:50 by sbibers          ###   ########.fr       */
+/*   Updated: 2025/04/22 18:35:36 by sbibers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	check_complete_file(t_cub3d *data)
 			&& data->file.complete_file[i] != 'W'
 			&& data->file.complete_file[i] != 'D'
 			&& data->file.complete_file[i] != 'B')
-			uncomplete_map(data, 1);
+			free_and_exit(data, "Error\nWrong char in map\n");
 		i++;
 	}
 	free(data->file.complete_file);
@@ -77,7 +77,7 @@ void	parse_map(t_cub3d *data)
 	data->map.copy_map = ft_dup_matrix(data->map.map,
 			ft_strlen_matrix(data->map.map), 0);
 	if (!data->map.copy_map)
-		uncomplete_map(data, 0);
+		free_and_exit(data, "Error\nFaild to allocate\n");
 	pad_map(data);
 	check_map_borders(data);
 	flood_fill_2(data, (data->player.y) / BLOCK, (data->player.x) / BLOCK);

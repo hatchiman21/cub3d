@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_1.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
+/*   By: sbibers <sbibers@student.42amman.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 22:08:45 by sbibers           #+#    #+#             */
-/*   Updated: 2025/04/15 19:46:13 by aatieh           ###   ########.fr       */
+/*   Updated: 2025/04/22 18:39:02 by sbibers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ft_strlen_matrix(char **str)
 	return (i);
 }
 
-void	uncomplete_map(t_cub3d *data, int flag)
+void	free_and_exit(t_cub3d *data, char *error)
 {
 	if (data->map.map)
 		ft_free_split(data->map.map);
@@ -42,12 +42,9 @@ void	uncomplete_map(t_cub3d *data, int flag)
 		free(data->floor_color);
 	if (data->ceiling_color)
 		free(data->ceiling_color);
-	if (flag == 1)
-		printf("Error\nWrong map\n");
-	else if (flag == 0)
-		printf("Error\nMemory allocation faild\n");
-	if (flag != 3)
-		exit(1);
+	if (error)
+		ft_dprintf(2, error);
+	exit(1);
 }
 
 char	*ft_strndup(const char *s, int n)

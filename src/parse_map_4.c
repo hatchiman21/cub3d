@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map_4.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
+/*   By: sbibers <sbibers@student.42amman.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 22:13:49 by sbibers           #+#    #+#             */
-/*   Updated: 2025/04/19 18:43:06 by aatieh           ###   ########.fr       */
+/*   Updated: 2025/04/22 18:38:52 by sbibers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	parse_color_line(t_cub3d *data, char *line)
 			free(data->floor_color);
 		data->floor_color = ft_strndup(line + 2, ft_strlen(line) - 2);
 		if (!data->floor_color)
-			uncomplete_map(data, 0);
+			free_and_exit(data, "Error\nFaild to allocate\n");
 		data->counter.count_floor_color++;
 	}
 	else if (ft_strncmp(line, "C ", 2) == 0)
@@ -29,7 +29,7 @@ static void	parse_color_line(t_cub3d *data, char *line)
 			free(data->ceiling_color);
 		data->ceiling_color = ft_strndup(line + 2, ft_strlen(line) - 2);
 		if (!data->ceiling_color)
-			uncomplete_map(data, 0);
+			free_and_exit(data, "Error\nFaild to allocate\n");
 		data->counter.count_ceiling_color++;
 	}
 }
@@ -42,7 +42,7 @@ static void	parse_texture_line_2(t_cub3d *data, char *line)
 			free(data->bearings.we);
 		data->bearings.we = ft_strndup(line + 3, ft_strlen(line) - 3);
 		if (!data->bearings.we)
-			uncomplete_map(data, 0);
+			free_and_exit(data, "Error\nFaild to allocate\n");
 		data->counter.count_we++;
 	}
 	else if (ft_strncmp(line, "EA ", 3) == 0)
@@ -51,7 +51,7 @@ static void	parse_texture_line_2(t_cub3d *data, char *line)
 			free(data->bearings.ea);
 		data->bearings.ea = ft_strndup(line + 3, ft_strlen(line) - 3);
 		if (!data->bearings.ea)
-			uncomplete_map(data, 0);
+			free_and_exit(data, "Error\nFaild to allocate\n");
 		data->counter.count_ea++;
 	}
 }
@@ -64,7 +64,7 @@ static void	parse_texture_line(t_cub3d *data, char *line)
 			free(data->bearings.no);
 		data->bearings.no = ft_strndup(line + 3, ft_strlen(line) - 3);
 		if (!data->bearings.no)
-			uncomplete_map(data, 0);
+			free_and_exit(data, "Error\nFaild to allocate\n");
 		data->counter.count_no++;
 	}
 	else if (ft_strncmp(line, "SO ", 3) == 0)
@@ -73,7 +73,7 @@ static void	parse_texture_line(t_cub3d *data, char *line)
 			free(data->bearings.so);
 		data->bearings.so = ft_strndup(line + 3, ft_strlen(line) - 3);
 		if (!data->bearings.so)
-			uncomplete_map(data, 0);
+			free_and_exit(data, "Error\nFaild to allocate\n");
 		data->counter.count_so++;
 	}
 	else
@@ -84,7 +84,7 @@ static void	parse_other_lines(t_cub3d *data, char *line)
 {
 	data->file.complete_file = ft_strjoin_gnl(data->file.complete_file, line);
 	if (!data->file.complete_file)
-		uncomplete_map(data, 0);
+		free_and_exit(data, "Error\nFaild to allocate\n");
 }
 
 void	split_lines(t_cub3d *data)
@@ -112,6 +112,6 @@ void	split_lines(t_cub3d *data)
 		|| data->counter.count_floor_color != 1 || data->counter.count_ea != 1
 		|| data->counter.count_so != 1 || data->counter.count_we != 1
 		|| data->counter.count_no != 1)
-		uncomplete_map(data, 1);
+		free_and_exit(data, "Error\nFile must have1of this:WE,SO,NO,EA,C,F\n");
 	check_bearings_colors(data);
 }

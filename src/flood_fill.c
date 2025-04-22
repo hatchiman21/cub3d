@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   flood_fill.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
+/*   By: sbibers <sbibers@student.42amman.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 22:24:52 by sbibers           #+#    #+#             */
-/*   Updated: 2025/04/17 18:44:39 by aatieh           ###   ########.fr       */
+/*   Updated: 2025/04/22 18:35:14 by sbibers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	flood_fill_2(t_cub3d *data, int y, int x)
 	if (y < 0 || x < 0 || y >= data->map.height || x >= data->map.width)
 	{
 		ft_free_split(data->map.copy_map);
-		uncomplete_map(data, 1);
+		free_and_exit(data, "Error\nMap must be surrounded\n");
 	}
 	if (data->map.copy_map[y][x] == '1' || data->map.copy_map[y][x] == '2')
 		return ;

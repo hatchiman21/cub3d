@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
+/*   By: sbibers <sbibers@student.42amman.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 22:55:42 by aatieh            #+#    #+#             */
-/*   Updated: 2025/04/22 16:24:21 by aatieh           ###   ########.fr       */
+/*   Updated: 2025/04/22 18:19:38 by sbibers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,7 +212,7 @@ void			parse_map(t_cub3d *data);
 char			**create_2darray(t_cub3d *data);
 void			ft_free_split(char **arr);
 char			*ft_strndup(const char *s, int n);
-void			uncomplete_map(t_cub3d *data, int flag);
+void			free_and_exit(t_cub3d *data, char *error);
 void			trim_config_lines(char **lines);
 void			split_lines(t_cub3d *data);
 void			create_map(t_cub3d *data);
