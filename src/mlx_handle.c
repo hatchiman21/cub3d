@@ -6,11 +6,18 @@
 /*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 19:03:47 by aatieh            #+#    #+#             */
-/*   Updated: 2025/04/17 21:25:24 by aatieh           ###   ########.fr       */
+/*   Updated: 2025/04/22 14:26:33 by aatieh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
+
+void	free_mlx_data(t_cub3d *data)
+{
+	delete_textures(data);
+	mlx_delete_image(data->mlx_data.mlx, data->mlx_data.img);
+	mlx_terminate(data->mlx_data.mlx);
+}
 
 void	ft_background(uint32_t start, uint32_t color, mlx_image_t *img)
 {
@@ -32,11 +39,11 @@ int32_t	ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a)
 	return (r << 24 | g << 16 | b << 8 | a);
 }
 
-void	my_put_pixel(mlx_image_t *img, uint32_t x, uint32_t y, uint32_t color)
+void	my_put_pixel(mlx_image_t *img, int x, int y, uint32_t color)
 {
-	if (x >= img->width || y >= img->height)
+	if ((uint32_t)x >= img->width || (uint32_t)y >= img->height || x < 0 || y < 0)
 		return ;
-	mlx_put_pixel(img, x, y, color);
+	mlx_put_pixel(img, (uint32_t)x, (uint32_t)y, color);
 }
 
 void	ft_draw_loop(void *param)
@@ -62,7 +69,5 @@ void	ft_draw_loop(void *param)
 		draw_ray_line(data, ray_angle, x++);
 		ray_angle += data->player.fraction;
 	}
-	draw_map(&data->map, &data->mlx_data);
-	draw_cube((float []){data->player.x / 4, data->player.y / 4},
-		1, 0xFF0000FF, &data->mlx_data);
+	draw_map(&data->map, &data->mlx_data, data);
 }

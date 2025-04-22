@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbibers <sbibers@student.42amman.com>      +#+  +:+       +#+        */
+/*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 22:55:42 by aatieh            #+#    #+#             */
-/*   Updated: 2025/04/20 18:00:24 by sbibers          ###   ########.fr       */
+/*   Updated: 2025/04/22 15:31:07 by aatieh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@
 # define BLOCK 32
 # define FOV 6
 # define COLISION 20
+# define MINI_SIZE 8.0
+# define MINI_SCALE 4
 
 typedef struct s_color
 {
@@ -98,6 +100,7 @@ typedef struct s_ray
 	int		step_x;
 	int		step_y;
 	int		side;
+	float	angle;
 	float	ray_dir_x;
 	float	ray_dir_y;
 }			t_ray;
@@ -227,17 +230,19 @@ void			move_player_extend(t_cub3d *data, t_move_player mv);
 void			rotate_player(t_cub3d *data);
 void			mouse_handler(double xdelta, double ydelta, void *param);
 
-void			draw_map(t_map *map, t_mlx_cube3d *mlx_data);
+void			draw_map(t_map *map, t_mlx_cube3d *mlx_data, t_cub3d *data);
+int32_t			ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a);
 void			draw_cube(float xy[2], int size, int color,
 					t_mlx_cube3d *mlx_data);
 void			draw_sprite(t_cub3d *data,
 					mlx_texture_t *texture, t_sprite *sprite);
 
-void			my_put_pixel(mlx_image_t *img, uint32_t x,
-					uint32_t y, uint32_t color);
+void			my_put_pixel(mlx_image_t *img, int x,
+					int y, uint32_t color);
 void			ft_background(uint32_t start, uint32_t color, mlx_image_t *img);
 void			handle_drawing(t_mlx_cube3d *mlx_data, t_cub3d *data);
 mlx_texture_t	*get_texture(t_ray *ray, t_cub3d *data);
+void			free_mlx_data(t_cub3d *data);
 
 bool			touch(t_player *player, float step_x,
 					float step_y, t_cub3d *data);

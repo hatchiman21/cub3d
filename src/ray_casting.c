@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ray_casting.c                                   :+:      :+:    :+:   */
+/*   ray_casting.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 06:22:37 by aatieh            #+#    #+#             */
-/*   Updated: 2025/04/17 21:19:45 by aatieh           ###   ########.fr       */
+/*   Updated: 2025/04/22 15:31:18 by aatieh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ void	draw_ray_line(t_cub3d *data, float ray_angle, int x)
 	ray.map_y = (int)data->player.y / BLOCK;
 	ray.ray_dir_x = cos(ray_angle);
 	ray.ray_dir_y = sin(ray_angle);
+	ray.angle = ray_angle;
 	if (ray.ray_dir_x == 0)
 		ray.delta_dist_x = 1e30;
 	else
