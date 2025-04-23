@@ -6,7 +6,7 @@
 /*   By: sbibers <sbibers@student.42amman.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 12:12:06 by sbibers           #+#    #+#             */
-/*   Updated: 2025/04/22 18:35:36 by sbibers          ###   ########.fr       */
+/*   Updated: 2025/04/23 11:19:41 by sbibers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,7 @@ void	check_complete_file(t_cub3d *data)
 			&& data->file.complete_file[i] != 'S'
 			&& data->file.complete_file[i] != 'E'
 			&& data->file.complete_file[i] != 'W'
-			&& data->file.complete_file[i] != 'D'
-			&& data->file.complete_file[i] != 'B')
+			&& data->file.complete_file[i] != 'D')
 			free_and_exit(data, "Error\nWrong char in map\n");
 		i++;
 	}
@@ -72,7 +71,6 @@ void	parse_map(t_cub3d *data)
 	create_map(data);
 	check_map(data);
 	check_map_2(data);
-	check_sprite(data);
 	get_poisition_of_player(data);
 	data->map.copy_map = ft_dup_matrix(data->map.map,
 			ft_strlen_matrix(data->map.map), 0);
