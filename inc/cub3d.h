@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbibers <sbibers@student.42amman.com>      +#+  +:+       +#+        */
+/*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 22:55:42 by aatieh            #+#    #+#             */
-/*   Updated: 2025/04/23 11:17:42 by sbibers          ###   ########.fr       */
+/*   Updated: 2025/04/23 12:45:52 by aatieh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # define CUB_WIDTH 1280
 # define CUB_HEIGHT 720
 # define BLOCK 32
-# define FOV 6
+# define FOV 5
 # define COLISION 20
 # define MINI_SIZE 8.0
 # define MINI_SCALE 4
@@ -39,8 +39,18 @@ typedef struct s_color
 	uint32_t		g;
 	uint32_t		b;
 	uint32_t		a;
-	uint32_t	color;
-}				t_color;
+	uint32_t		color;
+}					t_color;
+
+typedef struct s_draw_map
+{
+	int		i;
+	int		j;
+	float	player_y;
+	float	player_x;
+	int		ini_i;
+	int		ini_j;
+}			t_draw_map;
 
 typedef struct s_move_player
 {
@@ -257,5 +267,6 @@ void			pad_map(t_cub3d *data);
 void			check_map_borders(t_cub3d *data);
 void			flood_fill_2(t_cub3d *data, int player_y, int player_x);
 void			init_data(t_cub3d *data);
+void			ft_open_door(mlx_key_data_t keydata, void *param);
 
 #endif

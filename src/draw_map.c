@@ -6,7 +6,7 @@
 /*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 06:19:52 by aatieh            #+#    #+#             */
-/*   Updated: 2025/04/23 11:28:35 by aatieh           ###   ########.fr       */
+/*   Updated: 2025/04/23 12:04:01 by aatieh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,62 +53,50 @@ void	draw_player(t_cub3d *data, t_player *player)
 		1, 0xFF0000FF, &data->mlx_data);
 }
 
-void	draw_map(t_map *map, t_mlx_cube3d *mlx_data, t_cub3d *data)
+void	draw_map_loop(t_map *map, t_mlx_cube3d *mlx_data,
+			t_cub3d *data, t_draw_map *var)
 {
-	float	i;
-	float	j;
-	float	player_y;
-	float	player_x;
-	float	ini_i;
-	float	ini_j;
-
-	player_x = data->player.x / BLOCK;
-	player_y = data->player.y / BLOCK;
-	i = player_y - MINI_SIZE;
-	if (i < 0)
-		i = 0;
-	ini_i = i;
-	while (i < map->height && (i <= player_y + MINI_SIZE || i <= ini_i + (MINI_SIZE * 2)))
+	var->j = var->player_x - MINI_SIZE;
+	if (var->j < 0)
+		var->j = 0;
+	var->ini_j = var->j;
+	while (var->j < map->width && (var->j <= var->player_x
+			+ MINI_SIZE || var->j <= var->ini_j + (MINI_SIZE * 2)))
 	{
-		j = player_x - MINI_SIZE;
-		if (j < 0)
-			j = 0;
-		ini_j = j;
-		while (j < map->width && (j <= player_x + MINI_SIZE || j <= ini_j + (MINI_SIZE * 2)))
-		{
-			if (map->map[(int)i][(int)j] == '1')
-				draw_cube((float []){(j - ini_j) * data->scale + 2,(i - ini_i) * data->scale + 2},
-					data->scale, 0x0000FFFF, mlx_data);
-			else if ((map->map[(int)i][(int)j] == 'D' || map->map[(int)i][(int)j] == 'O'))
-				draw_cube((float []){(j - ini_j) * data->scale + 2, (i - ini_i) * data->scale + 2},
-					data->scale, 0x0FF0FFFF, mlx_data);
-			j++;
-		}
-		i++;
+		if (map->map[var->i][var->j] == '1')
+			draw_cube((float []){(var->j - var->ini_j) * data->scale + 2,
+				(var->i - var->ini_i) * data->scale + 2},
+				data->scale, 0x0000FFFF, mlx_data);
+		else if ((map->map[var->i][var->j] == 'D'
+			|| map->map[var->i][var->j] == 'O'))
+			draw_cube((float []){(var->j - var->ini_j) * data->scale + 2,
+				(var->i - var->ini_i) * data->scale + 2},
+				data->scale, 0x0FF0FFFF, mlx_data);
+		var->j++;
 	}
-	draw_cube((float []){0, 0},
-					(BLOCK) * (MINI_SIZE + 0.7) * 0.5, 0xFFFFFFFF, mlx_data);
-	draw_cube((float []){1, 1},
-					(BLOCK) * (MINI_SIZE + 0.7) * 0.5, 0xFFFFFFFF, mlx_data);
-	draw_player(data, &data->player);
 }
 
-void	ft_open_door(mlx_key_data_t keydata, void *param)
+void	draw_map(t_map *map, t_mlx_cube3d *mlx_data, t_cub3d *data)
 {
-	t_cub3d	*data;
-	int		next_x;
-	int		next_y;
+	t_draw_map	var;
 
-	data = (t_cub3d *)param;
-	next_x = data->player.x + COLISION * 1.5 * cos(data->player.angle);
-	next_y = data->player.y + COLISION * 1.5 * sin(data->player.angle);
-	if (keydata.key == MLX_KEY_SPACE && keydata.action == MLX_RELEASE)
+	var.player_x = data->player.x / BLOCK;
+	var.player_y = data->player.y / BLOCK;
+	var.i = var.player_y - MINI_SIZE;
+	if (var.i < 0)
+		var.i = 0;
+	var.ini_i = var.i;
+	while (var.i < map->height && (var.i <= var.player_y + MINI_SIZE
+			|| var.i <= var.ini_i + (MINI_SIZE * 2)))
 	{
-		if (data->map.map[next_y / BLOCK][next_x / BLOCK] == 'D')
-			data->map.map[next_y / BLOCK][next_x / BLOCK] = 'O';
-		else if (data->map.map[next_y / BLOCK][next_x / BLOCK] == 'O')
-			data->map.map[next_y / BLOCK][next_x / BLOCK] = 'D';
+		draw_map_loop(map, mlx_data, data, &var);
+		var.i++;
 	}
+	draw_cube((float []){0, 0},
+		(BLOCK) * (MINI_SIZE + 0.7) * 0.5, 0xFFFFFFFF, mlx_data);
+	draw_cube((float []){1, 1},
+		(BLOCK) * (MINI_SIZE + 0.7) * 0.5, 0xFFFFFFFF, mlx_data);
+	draw_player(data, &data->player);
 }
 
 void	handle_drawing(t_mlx_cube3d *mlx_data, t_cub3d *data)

@@ -3,14 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   utils_2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbibers <sbibers@student.42amman.com>      +#+  +:+       +#+        */
+/*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 14:16:00 by sbibers           #+#    #+#             */
-/*   Updated: 2025/04/16 14:13:31 by sbibers          ###   ########.fr       */
+/*   Updated: 2025/04/23 12:04:22 by aatieh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
+
+void	ft_open_door(mlx_key_data_t keydata, void *param)
+{
+	t_cub3d	*data;
+	int		next_x;
+	int		next_y;
+
+	data = (t_cub3d *)param;
+	next_x = data->player.x + COLISION * 1.5 * cos(data->player.angle);
+	next_y = data->player.y + COLISION * 1.5 * sin(data->player.angle);
+	if (keydata.key == MLX_KEY_SPACE && keydata.action == MLX_RELEASE)
+	{
+		if (data->map.map[next_y / BLOCK][next_x / BLOCK] == 'D')
+			data->map.map[next_y / BLOCK][next_x / BLOCK] = 'O';
+		else if (data->map.map[next_y / BLOCK][next_x / BLOCK] == 'O')
+			data->map.map[next_y / BLOCK][next_x / BLOCK] = 'D';
+	}
+}
 
 char	**ft_dup_matrix(char **m, int size, int flag)
 {

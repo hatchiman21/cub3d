@@ -6,7 +6,7 @@
 /*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 21:19:10 by aatieh            #+#    #+#             */
-/*   Updated: 2025/04/22 19:02:47 by aatieh           ###   ########.fr       */
+/*   Updated: 2025/04/23 12:45:44 by aatieh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	define_line_height(t_vertival_line *ln, t_ray *ray, t_cub3d *data)
 	else
 		ln->distance = (ray->map_y - (data->player.y / BLOCK)
 				+ (1 - ray->step_y) * 0.5) / ray->ray_dir_y;
-	ln->distance *= cos(ray->angle - data->player.angle);
+	ln->distance = ln->distance * cos(ray->angle - data->player.angle);
 	ln->line_height = (int)(CUB_HEIGHT / ln->distance);
 	ln->draw_start = -ln->line_height * 0.5 + CUB_HEIGHT * 0.5;
 	if (ln->draw_start < 0)
