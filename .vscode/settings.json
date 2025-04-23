@@ -17,7 +17,9 @@
         "iterator": "c",
         "chrono": "c",
         "text_encoding": "c",
-        "typeinfo": "c"
+        "typeinfo": "c",
+        "string": "c",
+        "math.h": "c"
     },
     "cmake.sourceDirectory": "/home/sbibers/cub3d/MLX42/tests"
 }
