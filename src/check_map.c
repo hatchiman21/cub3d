@@ -6,7 +6,7 @@
 /*   By: sbibers <sbibers@student.42amman.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 14:14:08 by sbibers           #+#    #+#             */
-/*   Updated: 2025/04/22 18:33:07 by sbibers          ###   ########.fr       */
+/*   Updated: 2025/04/23 11:19:35 by sbibers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void	check_map(t_cub3d *data)
 			if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
 				player_count++;
 			else if (c != '0' && c != '1' && c != ' ' && c != '\n' && c != 'D'
-				&& c != 'B' && c != '\t')
+				&& c != '\t')
 				free_and_exit(data, "Error\nWrong chars in map\n");
 		}
 	}
