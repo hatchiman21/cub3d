@@ -6,7 +6,7 @@
 /*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 17:32:26 by sbibers           #+#    #+#             */
-/*   Updated: 2025/04/19 18:45:58 by aatieh           ###   ########.fr       */
+/*   Updated: 2025/04/23 10:52:46 by aatieh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,9 @@ void	save_textures(t_cub3d *data)
 		|| !data->moon.f[0] || !data->moon.f[1]
 		|| !data->moon.f[2] || !data->moon.f[3]
 		|| !data->mlx_data.door[0])
-	{
+		{
 		delete_textures(data);
-		uncomplete_map(data, 2);
+		free_and_exit(data, "Error\nFaild to load map\n");
 	}
 }
 
@@ -76,6 +76,6 @@ int	main(int argc, char *argv[])
 	parse_map(&data);
 	save_textures(&data);
 	handle_drawing(&data.mlx_data, &data);
-	uncomplete_map(&data, 3);
+	free_and_exit(&data, NULL);
 	return (0);
 }

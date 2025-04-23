@@ -6,7 +6,7 @@
 /*   By: sbibers <sbibers@student.42amman.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 14:14:08 by sbibers           #+#    #+#             */
-/*   Updated: 2025/04/20 17:25:49 by sbibers          ###   ########.fr       */
+/*   Updated: 2025/04/22 18:33:07 by sbibers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static void	free_empty_last_lines(t_cub3d *data)
 		i--;
 	data->map.map = ft_dup_matrix(data->map.map, i + 1, 1);
 	if (!data->map.map)
-		uncomplete_map(data, 0);
+		free_and_exit(data, "Error\nFaild to allocate\n");
 }
 
 void	check_map_2(t_cub3d *data)
@@ -76,7 +76,7 @@ void	check_map_2(t_cub3d *data)
 			while (data->map.map[i][j] && data->map.map[i][j] == ' ')
 				j++;
 			if (data->map.map[i][j] == '\n' || data->map.map[i][j] == '\0')
-				uncomplete_map(data, 1);
+				free_and_exit(data, "Error\nWrong map\n");
 		}
 		i++;
 	}
@@ -102,9 +102,9 @@ void	check_map(t_cub3d *data)
 				player_count++;
 			else if (c != '0' && c != '1' && c != ' ' && c != '\n' && c != 'D'
 				&& c != 'B' && c != '\t')
-				uncomplete_map(data, 1);
+				free_and_exit(data, "Error\nWrong chars in map\n");
 		}
 	}
 	if (player_count != 1)
-		uncomplete_map(data, 1);
+		free_and_exit(data, "Error\nWrong number of players\n");
 }

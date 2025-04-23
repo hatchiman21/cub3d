@@ -6,7 +6,7 @@
 /*   By: sbibers <sbibers@student.42amman.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 22:21:13 by sbibers           #+#    #+#             */
-/*   Updated: 2025/04/15 19:07:16 by sbibers          ###   ########.fr       */
+/*   Updated: 2025/04/22 18:33:37 by sbibers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	create_map_2(t_cub3d *data, int *i, int *j)
 	{
 		data->map.map[*j] = ft_strdup(data->file.split_all_file[*i]);
 		if (!data->map.map[*j])
-			uncomplete_map(data, 0);
+			free_and_exit(data, "Error\nFaild to allocate\n");
 		(*i)++;
 		(*j)++;
 	}
@@ -51,6 +51,6 @@ void	create_map(t_cub3d *data)
 	}
 	data->map.map = malloc(sizeof(char *) * (map_lines + 1));
 	if (!data->map.map)
-		uncomplete_map(data, 0);
+		free_and_exit(data, "Error\nFaild to allocate\n");
 	create_map_2(data, &i, &j);
 }

@@ -6,7 +6,7 @@
 /*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 06:19:52 by aatieh            #+#    #+#             */
-/*   Updated: 2025/04/22 18:08:44 by aatieh           ###   ########.fr       */
+/*   Updated: 2025/04/22 21:48:52 by aatieh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,16 +137,14 @@ void	handle_drawing(t_mlx_cube3d *mlx_data, t_cub3d *data)
 	if (!mlx_data->mlx)
 	{
 		delete_textures(data);
-		ft_putstr_fd("Error\nFailed to initialize mlx\n", 2);
-		uncomplete_map(data, 0);
+		free_and_exit(data, "Error\nFailed to initialize mlx\n");
 	}
 	mlx_data->img = mlx_new_image(mlx_data->mlx, CUB_WIDTH, CUB_HEIGHT);
 	if (!mlx_data->img)
 	{
 		delete_textures(data);
 		mlx_terminate(mlx_data->mlx);
-		ft_putstr_fd("Error\nFailed to create image\n", 2);
-		uncomplete_map(data, 0);
+		free_and_exit(data, "Error\nFailed to create image\n");
 	}
 	determine_init_angle(data);
 	data->player.x_delta = 0;
