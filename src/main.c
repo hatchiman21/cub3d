@@ -6,7 +6,7 @@
 /*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 17:32:26 by sbibers           #+#    #+#             */
-/*   Updated: 2025/04/23 10:52:46 by aatieh           ###   ########.fr       */
+/*   Updated: 2025/04/23 11:05:32 by aatieh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,11 @@ void	save_textures(t_cub3d *data)
 	data->mlx_data.so = mlx_load_png(data->bearings.so);
 	data->mlx_data.we = mlx_load_png(data->bearings.we);
 	data->mlx_data.ea = mlx_load_png(data->bearings.ea);
-	data->moon.f[0] = mlx_load_png("./texture/moon/moon_frame_00.png");
-	data->moon.f[1] = mlx_load_png("./texture/moon/moon_frame_01.png");
-	data->moon.f[2] = mlx_load_png("./texture/moon/moon_frame_02.png");
-	data->moon.f[3] = mlx_load_png("./texture/moon/moon_frame_03.png");
-	data->mlx_data.door[0] = mlx_load_png("./texture/door.png");
+	data->moon.f[0] = mlx_load_png("./textures/moon/moon_frame_00.png");
+	data->moon.f[1] = mlx_load_png("./textures/moon/moon_frame_01.png");
+	data->moon.f[2] = mlx_load_png("./textures/moon/moon_frame_02.png");
+	data->moon.f[3] = mlx_load_png("./textures/moon/moon_frame_03.png");
+	data->mlx_data.door[0] = mlx_load_png("./textures/door.png");
 	data->moon.frame = 0;
 	data->moon.x = 500;
 	data->moon.y = 0;

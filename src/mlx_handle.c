@@ -6,7 +6,7 @@
 /*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 19:03:47 by aatieh            #+#    #+#             */
-/*   Updated: 2025/04/22 18:13:53 by aatieh           ###   ########.fr       */
+/*   Updated: 2025/04/23 11:04:08 by aatieh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ int32_t	ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a)
 
 void	my_put_pixel(mlx_image_t *img, int x, int y, uint32_t color)
 {
-	if ((uint32_t)x >= img->width || (uint32_t)y >= img->height || x < 0 || y < 0)
+	if ((uint32_t)x >= img->width || (uint32_t)y >= img->height
+		|| x < 0 || y < 0)
 		return ;
 	mlx_put_pixel(img, (uint32_t)x, (uint32_t)y, color);
 }

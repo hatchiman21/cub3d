@@ -1,19 +1,19 @@
-NO   ./texture/test1.png  
-SO   ./texture/test1.png        
+NO   ./textures/test1.png  
+SO   ./textures/test1.png        
 
 
 
 
 
 
-EA   ./texture/test1.png
+EA   ./textures/test1.png
 
 
 
 
 
 C 0,25,25
-WE ./texture/moon.png
+WE ./textures/moon.png
 F 255,255,255
 
 11111
