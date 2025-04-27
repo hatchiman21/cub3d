@@ -6,7 +6,7 @@
 /*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 22:55:42 by aatieh            #+#    #+#             */
-/*   Updated: 2025/04/23 12:45:52 by aatieh           ###   ########.fr       */
+/*   Updated: 2025/04/27 11:33:21 by aatieh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,16 +74,20 @@ typedef struct s_texture_draw
 
 typedef struct s_vertival_line
 {
-	double			distance;
+	float			distance;
+	float			corrected_distance;
+	float			angle_difference;
+	float			angle_increment;
+	float			ray_angle;
 	int				line_height;
 	int				draw_start;
 	int				draw_end;
 	int				tex_y;
 	int				tex_x;
-	double			tex_pos;
-	double			wall_x;
+	float			tex_pos;
+	float			wall_x;
 	int				pixel_index;
-	double			step;
+	float			step;
 	mlx_texture_t	*texture;
 }					t_vertival_line;
 
@@ -91,10 +95,10 @@ typedef struct s_texture
 {
 	mlx_texture_t	*texture;
 	int				tex_x;
-	double			wall_x;
+	float			wall_x;
 	uint32_t		color;
-	double			step;
-	double			tex_pos;
+	float			step;
+	float			tex_pos;
 	int				tex_y;
 	int				pixel_index;
 }					t_texture;
@@ -182,7 +186,7 @@ typedef struct s_player
 	float	x;
 	float	y;
 	float	angle;
-	double	x_delta;
+	float	x_delta;
 	float	fraction;
 }			t_player;
 

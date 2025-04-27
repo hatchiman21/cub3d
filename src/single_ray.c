@@ -6,13 +6,14 @@
 /*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 21:19:10 by aatieh            #+#    #+#             */
-/*   Updated: 2025/04/23 13:02:59 by aatieh           ###   ########.fr       */
+/*   Updated: 2025/04/27 12:30:36 by aatieh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-void	define_line_height(t_vertival_line *ln, t_ray *ray, t_cub3d *data)
+void	define_line_height(t_vertival_line *ln, t_ray *ray,
+			t_cub3d *data, int x)
 {
 	if (ray->side == 0)
 		ln->distance = (ray->map_x - (data->player.x / BLOCK)
@@ -20,7 +21,14 @@ void	define_line_height(t_vertival_line *ln, t_ray *ray, t_cub3d *data)
 	else
 		ln->distance = (ray->map_y - (data->player.y / BLOCK)
 				+ (1 - ray->step_y) * 0.5) / ray->ray_dir_y;
-	ln->line_height = (int)(CUB_HEIGHT / ln->distance);
+	ln->angle_difference = data->player.angle - ray->angle;
+	ln->angle_difference = fmod(ln->angle_difference + PI, 2 * PI) - PI;
+	ln->angle_increment = (PI / FOV) / (double)CUB_WIDTH;
+	ln->ray_angle = data->player.angle
+		+ (x * ln->angle_increment - (PI / FOV) / 2.0);
+	ln->angle_difference = data->player.angle - ln->ray_angle;
+	ln->corrected_distance = ln->distance * cos(ln->angle_difference);
+	ln->line_height = (int)(CUB_HEIGHT / ln->corrected_distance);
 	ln->draw_start = -ln->line_height * 0.5 + CUB_HEIGHT * 0.5;
 	if (ln->draw_start < 0)
 		ln->draw_start = 0;
@@ -68,7 +76,7 @@ void	draw_vertical_line(t_ray *ray, t_cub3d *data, int x)
 
 	if (ray->map_y >= data->map.height || ray->map_x >= data->map.width)
 		return ;
-	define_line_height(&ln, ray, data);
+	define_line_height(&ln, ray, data, x);
 	if (data->map.map[ray->map_y][ray->map_x] == 'O'
 		&& (ln.wall_x >= 0.33 && ln.wall_x <= 0.66))
 	{
