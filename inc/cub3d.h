@@ -6,7 +6,7 @@
 /*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 22:55:42 by aatieh            #+#    #+#             */
-/*   Updated: 2025/04/27 11:33:21 by aatieh           ###   ########.fr       */
+/*   Updated: 2025/04/28 11:42:00 by aatieh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,8 @@ typedef struct s_vertival_line
 {
 	float			distance;
 	float			corrected_distance;
-	float			angle_difference;
-	float			angle_increment;
+	float			wall_height;
+	float			projection_distance;
 	float			ray_angle;
 	int				line_height;
 	int				draw_start;
