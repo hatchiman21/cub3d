@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
+/*   By: sbibers <sbibers@student.42amman.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 14:16:00 by sbibers           #+#    #+#             */
-/*   Updated: 2025/04/23 12:04:22 by aatieh           ###   ########.fr       */
+/*   Updated: 2025/04/28 16:00:23 by sbibers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,21 @@ void	init_data(t_cub3d *data)
 	data->counter.count_we = 0;
 	data->counter.count_floor_color = 0;
 	data->counter.count_ceiling_color = 0;
+}
+
+void	ft_map_background(uint32_t start, uint32_t color, mlx_image_t *img)
+{
+	uint32_t	i;
+	uint32_t	j;
+	uint32_t	size;
+
+	i = 0;
+	size = (BLOCK) * (MINI_SIZE + 0.7) * 0.5;
+	while (i < size)
+	{
+		j = 0;
+		while (j < size)
+			my_put_pixel(img, i, start + j++, color);
+		i++;
+	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
+/*   By: sbibers <sbibers@student.42amman.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 06:19:52 by aatieh            #+#    #+#             */
-/*   Updated: 2025/04/23 12:04:01 by aatieh           ###   ########.fr       */
+/*   Updated: 2025/04/28 16:00:58 by sbibers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ void	draw_map(t_map *map, t_mlx_cube3d *mlx_data, t_cub3d *data)
 {
 	t_draw_map	var;
 
+	ft_map_background(0, 0x000000FF, mlx_data->img);
 	var.player_x = data->player.x / BLOCK;
 	var.player_y = data->player.y / BLOCK;
 	var.i = var.player_y - MINI_SIZE;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aatieh <aatieh@student.42amman.com>        +#+  +:+       +#+        */
+/*   By: sbibers <sbibers@student.42amman.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 22:55:42 by aatieh            #+#    #+#             */
-/*   Updated: 2025/04/28 11:42:00 by aatieh           ###   ########.fr       */
+/*   Updated: 2025/04/28 16:00:38 by sbibers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -272,5 +272,6 @@ void			check_map_borders(t_cub3d *data);
 void			flood_fill_2(t_cub3d *data, int player_y, int player_x);
 void			init_data(t_cub3d *data);
 void			ft_open_door(mlx_key_data_t keydata, void *param);
+void			ft_map_background(uint32_t start, uint32_t color, mlx_image_t *img);
 
 #endif
